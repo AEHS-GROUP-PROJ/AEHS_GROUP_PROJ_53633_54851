@@ -1,0 +1,99 @@
+// DBML notation of the DB schema
+
+Table users {
+  id integer [primary key]
+  user_name varchar
+  full_name varchar
+  email varchar
+  address varchar
+  phone varchar
+  is_student bool
+  is_lecturer bool
+  is_admin bool
+  password_hash varchar
+}
+
+Table sessions {
+  token varchar [primary key]
+  user_id integer
+  logged_in timestamp
+  logged_out timestamp
+  host varchar
+  agent varchar
+}
+
+Table courses {
+  id integer [primary key]
+  title varchar
+  start_date date
+  end_date date
+  places integer
+}
+
+Table lectures {
+  id integer [primary key]
+  course_id integer
+  lecturer_id integer
+  classroom_id integer
+  title varchar
+  start_time datetime
+  end_time datetime
+}
+
+Table classrooms {
+  id integer [primary key]
+  room_no integer
+  title varchar
+}
+
+Table attendance {
+  lecture_id integer
+  student_id integer
+}
+
+Table enrollments {
+  student_id integer
+  course_id integer
+  applied_at datetime
+  approved bool
+  onboard_date date
+  offboard_date date
+}
+
+Table assignments {
+  id integer [primary key]
+  course_id integer
+  title varchar
+  starts_at datetime
+  ends_at datetime
+}
+
+Table assignment_submissions {
+  assignment_id integer
+  student_id integer
+  submitted_at datetime
+  graded_at datetime
+  grade integer
+}
+
+Ref: "sessions"."user_id" > "users"."id"
+
+Ref: "users"."id" < "enrollments"."student_id"
+
+Ref: "courses"."id" < "enrollments"."course_id"
+
+Ref: "courses"."id" < "assignments"."course_id"
+
+Ref: "lectures"."course_id" > "courses"."id"
+
+Ref: "users"."id" < "lectures"."lecturer_id"
+
+Ref: "classrooms"."id" < "lectures"."classroom_id"
+
+Ref: "assignments"."id" < "assignment_submissions"."assignment_id"
+
+Ref: "users"."id" < "assignment_submissions"."student_id"
+
+Ref: "lectures"."id" < "attendance"."lecture_id"
+
+Ref: "users"."id" < "attendance"."student_id"

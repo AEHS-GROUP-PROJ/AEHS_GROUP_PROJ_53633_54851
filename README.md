@@ -9,7 +9,7 @@
 
 ### Project Topic
 
-**Student Information System** - a web-application allowing managing student information in an educational institution
+**Student Information System** - a web-application allowing managing student information in an educational institution.
 
 ### Intended functionality
 

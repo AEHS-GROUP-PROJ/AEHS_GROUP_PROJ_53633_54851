@@ -1,0 +1,110 @@
+* {
+	box-sizing: border-box;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-color: #CCCCCC;
+	color: #333333;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 30px;
+}
+
+h1 {
+	font-size: 60px;
+	margin-bottom: 36px;
+}
+
+i:not(.fa-fw) + i {
+	margin-left: 6px;
+}
+
+#menu {
+	background-color: #333333;
+	color: #FFFFFF;
+	min-height: 100%;
+	padding: 24px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 400px;
+}
+
+#menu > h1 {
+	font-weight: bold;
+	line-height: 36px;
+}
+
+#menu > h1 > span {
+	color: #FF9900;
+}
+
+#menu > div.menu_item:hover {
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+#content {
+	position: fixed;
+	top: 0;
+	left: 400px;
+	padding: 24px;
+}
+
+#message {
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	display: none;
+	gap: 16px;
+	grid-template-columns: auto auto;
+	margin: 24px;
+	max-width: min(512px, 100vw);
+	padding: 16px;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+}
+
+div.grid {
+	display: grid;
+	grid-template-columns: auto auto;
+	gap: 16px;
+}
+
+div.grid > div {
+	white-space: nowrap;
+}
+
+input[type=text],
+input[type=password] {
+	border: 2px solid #666666;
+	border-radius: 4px;
+	font-size: 16px;
+	line-height: 18px;
+	padding: 4px;
+	width: 400px;
+}
+
+div.button {
+	border-radius: 8px;
+	cursor: pointer;
+	color: #FFFFFF;
+	display: inline-block;
+
+	background-color: #333333;
+	padding: 8px 16px;
+}
+
+div.button:hover {
+	opacity: 0.69;
+}

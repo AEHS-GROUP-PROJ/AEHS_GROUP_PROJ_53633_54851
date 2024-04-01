@@ -35,3 +35,4 @@
 | --- | --- |
 | ``/README.md`` | This file |
 | ``/db`` | Database related documentation |
+| ``/src`` | Codebase |

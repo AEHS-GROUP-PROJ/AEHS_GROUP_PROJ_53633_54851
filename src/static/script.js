@@ -1,27 +1,17 @@
 (function () {
 	"use strict";
 
+	/**
+	 * Indicates the presence of an active AJAX request
+	 * @type {boolean}
+	 */
 	let loading = false
+
+	/**
+	 * Stores the ID of the timeout to hide the message
+	 * @type {number|null}
+	 */
 	let messageTimeout = null
-
-	/*
-
-	{
-		'icon': 'user',
-		'text': 'Hey!',
-		'type': 0
-	}
-
-	Message types:
-
-	0 - Neutral
-	1 - Success
-	2 - Warning
-	3 - Error
-
-	*/
-
-	const messages = []
 
 	function addEventListeners(node)
 	{
@@ -38,9 +28,15 @@
 		})
 	}
 
-	function execute(instruction, element = null)
+	/**
+	 * Executes an instruction
+	 * @param {string} instruction
+	 * @param {Element} [element] - The initiating element (if any)
+	 * @return {void}
+	 */
+	function execute(instruction, element)
 	{
-		if (/^action\([a-z\d]+(,.*)?\)$/.test(instruction))
+		if (/^action\([a-z_\d]+(,.*)?\)$/.test(instruction))
 		{
 			const args = instruction.slice(7, -1).split(',')
 			const data = new FormData()
@@ -55,27 +51,32 @@
 
 					if (!form) continue
 
-					// Collecting text and password inputs
+					let inputs = form.querySelectorAll('input[type=text],input[type=password]')
 
-					const textInputs = form.querySelectorAll('input[type=text],input[type=password]')
-
-					for (let j = 0; j < textInputs.length; j++)
+					for (let j = 0; j < inputs.length; j++)
 					{
-						const name = textInputs[j].getAttribute('name')
+						const name = inputs[j].getAttribute('name')
 
-						if (name && /^[a-z_\d]+$/.test(name))
-							data.set(name, textInputs[j].value)
+						if (name && /^[a-z_\d]*$/.test(name))
+							data.set(name, inputs[j].value)
+					}
+
+					inputs = form.querySelectorAll('input[type=checkbox]')
+
+					for (let j = 0; j < inputs.length; j++)
+					{
+						const name = inputs[j].getAttribute('name')
+
+						if (name && /^[a-z_\d]*$/.test(name))
+							data.set(name, inputs[j].checked ? 1 : 0)
 					}
 				}
 			}
 
-			post (data)
+			post(data)
 		}
-		else if (instruction === 'hide')
-		{
-			if (element && typeof element === 'object')
-				element.style.display = 'none'
-		}
+		else if (instruction === 'hide' && element)
+			element.style.display = 'none'
 	}
 
 	function message(text, type)
@@ -86,18 +87,34 @@
 			return
 
 		let icon = 'info-circle'
+		let textColor = 'inherit'
+		let backgroundColor = '#FFFFFF'
 
 		if (type === 1)
+		{
 			icon = 'check-circle'
+			textColor = 'inherit'
+			backgroundColor = '#DDFFDD'
+		}
 		else if (type === 2)
-			icon === 'exclamation-triangle'
+		{
+			icon = 'exclamation-triangle'
+			textColor = 'inherit'
+			backgroundColor = '#FFFFDD'
+		}
 		else if (type === 3)
-			icon === 'times-circle'
+		{
+			icon = 'times-circle'
+			textColor = '#FFFFFF'
+			backgroundColor = '#FF0000'
+		}
 
 		clearTimeout(messageTimeout)
 
 		message.innerHTML = '<div><i class="fa fa-'+icon+'"></i></div><div>'+text+'</div>'
 
+		message.style.color = textColor
+		message.style.backgroundColor = backgroundColor
 		message.style.display = 'grid'
 
 		messageTimeout = setTimeout(() => { message.style.display = 'none' }, 3000)
@@ -149,8 +166,6 @@
 					localStorage.setItem('message', JSON.stringify(json.message))
 
 				window.location.assign(window.location.origin + window.location.pathname + json.go)
-
-				return
 			}
 
 			if (typeof json.message === 'object')

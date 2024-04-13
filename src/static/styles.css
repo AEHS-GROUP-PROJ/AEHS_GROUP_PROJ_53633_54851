@@ -67,7 +67,7 @@ i:not(.fa-fw) + i {
 	display: none;
 	gap: 16px;
 	grid-template-columns: auto auto;
-	margin: 24px;
+	margin: 16px;
 	max-width: min(512px, 100vw);
 	padding: 16px;
 	position: fixed;
@@ -83,6 +83,15 @@ div.grid {
 
 div.grid > div {
 	white-space: nowrap;
+}
+
+label + label {
+	margin-left: 16px;
+}
+
+input[type=checkbox] {
+	height: 0.75em;
+	width: 0.75em;
 }
 
 input[type=text],

@@ -16,10 +16,14 @@ $LAYOUT = [ 'menu' => NULL, 'content' => NULL ];
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 {
 	if ( !isset ( $_GET['route'] ) )
-		$_GET['route'] = 'register';
+		$_GET['route'] = 'create_user';
 
-	if ( $_GET['route'] === 'register' )
-		require 'routes/register.php';
+	ob_start();
+
+	if ( $_GET['route'] === 'create_user' )
+		require 'routes/create_user.php';
+
+	$CONTENT = ob_get_clean();
 }
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' )
 	require 'actions/index.php';

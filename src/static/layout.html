@@ -7,10 +7,33 @@
 		<script src="static/script.js" defer></script>
 	</head>
 	<body>
-		<div id="content"><?= $CONTENT ?></div>
+		<div id="content"><?=$CONTENT?></div>
 		<div id="menu">
 			<h1>Student<br/><span>Information</span><br/>System</h1>
-			<?=$LAYOUT['menu']?>
+<?php
+
+if ( $_USER )
+{
+	// Menu composition depending on user roles
+
+	if ( $_USER['is_admin'] )
+		echo '<div class="menu_item" c-click="route(create_user)">
+			<i class="fa fa-fw fa-user-plus"></i>
+			<i>User registration</i>
+		</div>
+		<div class="menu_item" c-click="route(user_management)">
+			<i class="fa fa-fw fa-users"></i>
+			<i>User management</i>
+		</div>';
+
+	echo '<div class="menu_item" c-click="action(signout)">
+		<i class="fa fa-fw fa-sign-out"></i>
+		<i>Sign out</i>
+	</div>';
+
+}
+
+?>
 		</div>
 		<div id="message" c-click="hide"></div>
 	</body>

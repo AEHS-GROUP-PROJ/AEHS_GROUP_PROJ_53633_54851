@@ -1,0 +1,18 @@
+<h1>Authorization</h1>
+<div id="<?=dom_id('signin_form')?>" class="grid">
+	<div>Email</div>
+	<div>
+		<input type="text" name="email" autocomplete="email" maxlength="50"/>
+	</div>
+	<div>Password</div>
+	<div>
+		<input type="password" name="password" autocomplete="current-password"  maxlength="50"/>
+	</div>
+	<div></div>
+	<div>
+		<div class="button" c-click="action(signin,form(<?=dom_id('signin_form')?>))">
+			<i class="fa fa-sign-in"></i>
+			<i>Sign in</i>
+		</div>
+	</div>
+</div>

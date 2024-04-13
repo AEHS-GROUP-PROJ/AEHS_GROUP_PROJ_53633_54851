@@ -71,10 +71,14 @@
 							data.set(name, inputs[j].checked ? 1 : 0)
 					}
 				}
+				else if (/^[A-Za-z_\d]{1,256}:[A-Za-z_\d]{1,256}$/.test(args[i]))
+					data.set(args[i].split(':')[0], args[i].split(':')[1])
 			}
 
 			post(data)
 		}
+		else if (/^route\([a-z_\d]+\)$/.test(instruction))
+			window.location.assign(window.location.origin + '/?route=' + instruction.slice(6, -1))
 		else if (instruction === 'hide' && element)
 			element.style.display = 'none'
 	}
@@ -160,12 +164,12 @@
 
 			const json = await response.json()
 
-			if (typeof json.go === 'string')
+			if (typeof json.route === 'string' && /^[a-z_\d]{1,256}$/.test(json.route))
 			{
 				if (typeof json.message === 'object')
 					localStorage.setItem('message', JSON.stringify(json.message))
 
-				window.location.assign(window.location.origin + window.location.pathname + json.go)
+				window.location.assign(window.location.origin + '?route=' + json.route)
 			}
 
 			if (typeof json.message === 'object')

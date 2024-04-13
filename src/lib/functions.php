@@ -1,13 +1,14 @@
 <?php
 
-function go ( $url )
+function route ( $route )
 
-# Redirects user to the specified URL
+# Reroutes user to the specified route
 
 {
 	global $JSON;
 
-	$JSON['go'] = (string) $url;
+	if ( str_fit ( '[a-z_\d]{1,256}', (string) $route ) )
+		$JSON['route'] = (string) $route;
 }
 
 function in ( $val )
@@ -33,6 +34,27 @@ function str_fit ( $regexp, $str, $cs = FALSE )
 
 {
 	return mb_ereg_match ( '^('.$regexp.')$', (string) $str, 'msr'.( $cs ? '' : 'i' ) );
+}
+
+function str_html ( $str, $multiline = FALSE, $textarea = FALSE )
+
+# Escapes special HTML chars in $str
+
+{
+	$str = htmlspecialchars ( (string) $str );
+
+	if ( $multiline )
+	{
+		if ( $textarea )
+			return str_rep ( '\n', '&#010;', $str );
+
+		$str = str_rep ( '\n\n', '</p><p>', $str );
+		$str = str_rep ( '\n'  , '<br>'   , $str );
+
+		return '<p>'.$str.'</p>';
+	}
+
+	return str_rep ( '\n+', ' ', $str );
 }
 
 function str_json ( $val )

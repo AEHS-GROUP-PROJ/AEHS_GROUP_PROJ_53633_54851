@@ -1,0 +1,29 @@
+<h1>User management</h1>
+<div class="grid cols_3">
+	<div class="grid_header">Full Name</div>
+	<div class="grid_header">Email</div>
+	<div></div>
+	<?php
+
+	$USERS = sql ( '
+	SELECT
+		`users`.id,
+		`users`.email,
+		`users`.full_name
+	FROM `users`
+	ORDER BY `users`.full_name ASC' );
+
+	foreach ( $USERS as $USER )
+		echo '<div>
+			<i class="fa fa-user"></i>
+			<i>'.str_html ( $USER['full_name'] ).'</i>
+		</div>
+		<div>'.str_html ( $USER['email'] ).'</div>
+		<div>
+			<i class="fa fa-pencil" c-click="route(edit_user_'.$USER['id'].')"></i>
+			<i class="fa fa-trash red" c-click="action(delete_user,user:'.$USER['id'].')"></i>
+		</div>';
+
+	?>
+</div>
+

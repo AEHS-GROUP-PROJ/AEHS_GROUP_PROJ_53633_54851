@@ -49,9 +49,8 @@ i:not(.fa-fw) + i {
 	color: #FF9900;
 }
 
-#menu > div.menu_item:hover {
-	cursor: pointer;
-	opacity: 0.6;
+#menu > div.menu_item + div.menu_item {
+	margin-top: 16px;
 }
 
 #content {
@@ -81,8 +80,17 @@ div.grid {
 	gap: 16px;
 }
 
+div.grid.cols_3 {
+	grid-template-columns: auto auto auto;
+}
+
 div.grid > div {
 	white-space: nowrap;
+}
+
+div.grid_header {
+	border-bottom: 1px solid #000000;
+	font-weight: bold;
 }
 
 label + label {
@@ -106,14 +114,20 @@ input[type=password] {
 
 div.button {
 	border-radius: 8px;
-	cursor: pointer;
 	color: #FFFFFF;
 	display: inline-block;
-
 	background-color: #333333;
 	padding: 8px 16px;
 }
 
-div.button:hover {
+i.red {
+	color:#FF0000;
+}
+
+*[c-click] {
+	cursor: pointer;
+}
+
+*[c-click]:hover {
 	opacity: 0.69;
 }

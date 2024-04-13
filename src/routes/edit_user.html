@@ -1,0 +1,77 @@
+<?php
+
+if
+(
+	!$USER = sql ( '
+	SELECT
+		`users`.id,
+		`users`.email,
+		`users`.full_name,
+		`users`.address,
+		`users`.phone,
+		`users`.is_student,
+		`users`.is_lecturer,
+		`users`.is_admin
+	FROM `users`
+	WHERE `users`.id='.str_sub ( $_GET['route'], 10 ) , 1 )
+)
+{
+	echo ( '<h1>User is not found</h1>' );
+
+	return;
+}
+
+?>
+
+<h1>
+	<i class="fa fa-user"></i>
+	<i><?=str_html ( $USER['full_name'] )?></i>
+</h1>
+<div id="<?=dom_id('edit_user_form')?>" class="grid">
+	<div>Full name</div>
+	<div>
+		<input type="text" name="full_name" autocomplete="name" maxlength="50" value="<?=str_html ( $USER['full_name'] )?>"/>
+	</div>
+	<div>Email</div>
+	<div>
+		<input type="text" name="email" autocomplete="email" maxlength="50" value="<?=str_html ( $USER['email'] )?>"/>
+	</div>
+	<div>Home address</div>
+	<div>
+		<input type="text" name="address" autocomplete="street-address" maxlength="50" value="<?=str_html ( $USER['address'] )?>"/>
+	</div>
+	<div>Phone number</div>
+	<div>
+		<input type="text" name="phone" autocomplete="mobile" maxlength="50" value="<?=str_html ( $USER['phone'] )?>"/>
+	</div>
+	<div>Roles</div>
+	<div>
+		<label for="<?=dom_id('create_user_form_is_student')?>">
+			<input id="<?=dom_id('create_user_form_is_student')?>" type="checkbox" name="is_student"<?=( $USER['is_student'] ? ' checked' : '' )?>/>
+			Student
+		</label>
+		<label for="<?=dom_id('create_user_form_is_lecturer')?>">
+			<input id="<?=dom_id('create_user_form_is_lecturer')?>" type="checkbox" name="is_lecturer"<?=( $USER['is_lecturer'] ? ' checked' : '' )?>/>
+			Lecturer
+		</label>
+		<label for="<?=dom_id('create_user_form_is_admin')?>">
+			<input id="<?=dom_id('create_user_form_is_admin')?>" type="checkbox" name="is_admin"<?=( $USER['is_admin'] ? ' checked' : '' )?>/>
+			Admin
+		</label>
+	</div>
+	<div>Change password</div>
+	<div>
+		<input type="password" name="password" autocomplete="new-password"  maxlength="50"/>
+	</div>
+	<div>Confirm password</div>
+	<div>
+		<input type="password" name="password_confirm" autocomplete="new-password" maxlength="50"/>
+	</div>
+	<div></div>
+	<div>
+		<div class="button" c-click="action(edit_user,user:<?=$USER['id']?>,form(<?=dom_id('edit_user_form')?>))">
+			<i class="fa fa-save"></i>
+			<i>Save</i>
+		</div>
+	</div>
+</div>

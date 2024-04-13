@@ -28,6 +28,6 @@ if ( $_POST['user'] === $_USER['id'] )
 // Deleting the user record
 
 if ( sql ( 'DELETE FROM `users` WHERE `users`.id='.$_POST['user'], 1 ) )
-	message ( 'User successfully deleted', 2 );
+	message ( 'User successfully deleted', 1 );
 
 route ( 'user_management' );

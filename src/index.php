@@ -47,6 +47,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 
 	if ( $_GET['route'] === 'create_user' )
 		require 'routes/create_user.html';
+	elseif ( str_fit ( 'edit_user_[1-9]\d{0,15}', $_GET['route'] ) )
+		require 'routes/edit_user.html';
 	elseif ( $_GET['route'] === 'signin' )
 		require 'routes/signin.html';
 	elseif ( $_GET['route'] === 'user_management' )

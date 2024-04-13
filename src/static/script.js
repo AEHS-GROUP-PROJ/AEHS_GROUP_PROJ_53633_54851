@@ -1,22 +1,12 @@
 (function () {
 	"use strict";
 
-	/**
-	 * Indicates the presence of an active AJAX request
-	 * @type {boolean}
-	 */
 	let loading = false
 
-	/**
-	 * Stores the ID of the timeout to hide the message
-	 * @type {number|null}
-	 */
 	let messageTimeout = null
 
 	function addEventListeners(node)
 	{
-		// c-click
-
 		node.querySelectorAll('[c-click]').forEach(element => {
 			element.addEventListener('click', function(event) {
 				const attr = element.getAttribute('c-click')
@@ -28,12 +18,6 @@
 		})
 	}
 
-	/**
-	 * Executes an instruction
-	 * @param {string} instruction
-	 * @param {Element} [element] - The initiating element (if any)
-	 * @return {void}
-	 */
 	function execute(instruction, element)
 	{
 		if (/^action\([a-z_\d]+(,.*)?\)$/.test(instruction))

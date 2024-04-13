@@ -15,5 +15,7 @@ elseif ( $_POST['action'] === 'create_user' )
 	require 'create_user.php';
 elseif ( $_POST['action'] === 'delete_user' )
 	require 'delete_user.php';
+elseif ( $_POST['action'] === 'edit_user' )
+	require 'edit_user.php';
 
 exit ( str_json ( $JSON ) );

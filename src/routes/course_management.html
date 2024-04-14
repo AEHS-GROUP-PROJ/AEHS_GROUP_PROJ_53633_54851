@@ -1,9 +1,12 @@
-<h1>Course management</h1>
+<h1>
+	<i class="fa fa-graduation-cap"></i>
+	Course management
+</h1>
 <div class="grid cols_5">
 	<div class="grid_header">Title</div>
 	<div class="grid_header">Start date</div>
 	<div class="grid_header">End date</div>
-	<div class="grid_header">Availability</div>
+	<div class="grid_header">Enrollments</div>
 	<div></div>
 	<?php
 
@@ -13,28 +16,30 @@
 		`courses`.title,
 		`courses`.start_date,
 		`courses`.end_date,
-		`courses`.places
+		`courses`.places,
+		COUNT(IF(`enrollments`.is_accepted>0, 1, NULL)) AS `accepted`
 	FROM `courses`
+	LEFT JOIN `enrollments` ON `enrollments`.course_id=`courses`.id
+	GROUP BY `courses`.id
 	ORDER BY
 		`courses`.start_date DESC,
 		`courses`.title ASC' );
 
 	foreach ( $COURSES as $COURSE )
-		echo '<div>
-			<i class="fa fa-graduation-cap"></i>
-			<i>'.str_html ( $COURSE['title'] ).'</i>
-		</div>
+		echo '<div>'.str_html ( $COURSE['title'] ).'</div>
 		<div>'.$COURSE['start_date'].'</div>
 		<div>'.$COURSE['end_date'].'</div>
-		<div class="ralign">'.$COURSE['places'].'</div>
+		<div class="ralign '.( (int) $COURSE['accepted'] < (int) $COURSE['places'] ? 'green' : 'red' ).'">'.$COURSE['places'].'</div>
 		<div>
 			<i class="fa fa-pencil" c-click="route(edit_course_'.$COURSE['id'].')"></i>
 			<i class="fa fa-trash red" c-click="action(delete_course,course:'.$COURSE['id'].')"></i>
 		</div>';
 
 	?>
-	<div class="button" c-click="route(create_course)">
-		<i class="fa fa-plus"></i>
-		<i>Create course</i>
+	<div>
+		<div class="button" c-click="route(create_course)">
+			<i class="fa fa-plus"></i>
+			<i>Create course</i>
+		</div>
 	</div>
 </div>

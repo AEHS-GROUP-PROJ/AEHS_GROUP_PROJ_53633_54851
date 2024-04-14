@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_set ('Europe/Warsaw'); 
+date_default_timezone_set ('Europe/Warsaw');
 
 if
 (

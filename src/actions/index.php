@@ -5,6 +5,8 @@ if ( !isset ( $_POST['action'] ) )
 
 $JSON = [];
 
+// This is some sort of a router but for actions
+
 if ( $_POST['action'] === 'signin' )
 	require 'signin.php';
 elseif ( $_POST['action'] === 'signout' )

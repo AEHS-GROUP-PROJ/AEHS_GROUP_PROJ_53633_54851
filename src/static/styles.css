@@ -22,13 +22,13 @@ body {
 
 h1 {
 	font-size: 60px;
-	margin-bottom: 36px;
+	margin-bottom: 32px;
 }
 
 h2 {
 	font-size: 30px;
 	font-weight: bold;
-	margin: 36px 0px 16px 0px;
+	margin: 32px 0px 16px 0px;
 }
 
 h2:first-child {
@@ -52,7 +52,7 @@ i:not(.fa-fw) + i {
 
 #menu > h1 {
 	font-weight: bold;
-	line-height: 36px;
+	line-height: 32px;
 }
 
 #menu > h1 > span {

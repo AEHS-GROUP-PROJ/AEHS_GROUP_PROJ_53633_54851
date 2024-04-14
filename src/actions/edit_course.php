@@ -80,7 +80,7 @@ if ( !str_fit ( '\d+', $_POST['places'] ) )
 	return;
 }
 
-if ( intval ( $_POST['places'] ) < 1 )
+if ( !intval ( $_POST['places'] ) )
 {
 	message ( 'Course must have at least one place available', 2 );
 

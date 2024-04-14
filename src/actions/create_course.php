@@ -54,7 +54,7 @@ if ( !str_fit ( '\d{4}\-\d{2}\-\d{2}', $_POST['end_date'] ) )
 
 if ( $_POST['end_date'] < $_POST['start_date'] )
 {
-	message ( 'End date can\'t be earlier than start date', 2 );
+	message ( 'End date can\'t be earlier than the start date', 2 );
 
 	return;
 }
@@ -66,7 +66,7 @@ if ( !str_fit ( '\d+', $_POST['places'] ) )
 	return;
 }
 
-if ( intval ( $_POST['places'] ) < 1 )
+if ( !intval ( $_POST['places'] ) )
 {
 	message ( 'Course must have at least one place available', 2 );
 

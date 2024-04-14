@@ -1,5 +1,7 @@
 # AEHS Group Project (Spring 2024)
 
+Last revision: 2024-04-14
+
 ### Participants:
 
 - **Mikhail Melikhov** ``53633``
@@ -34,5 +36,20 @@
 | Path | Description |
 | --- | --- |
 | ``/README.md`` | This file |
+| ``index.php`` | App's entry point |
 | ``/db`` | Database related documentation |
 | ``/src`` | Codebase |
+| ``/src/actions`` | Business logic related to user's actions |
+| ``/src/lib`` | Misc. helping functions |
+| ``/src/routes`` | Routes for app's UI layouts |
+| ``/src/static`` | Statically served content |
+
+### Currently implemented functionality
+
+- Password-based authorization
+- User role management (student, lecturer, administrator)
+- Basic user management
+- Course management
+- Ability to apply to courses and withdraw
+- Enrollment management (administration acceptance, dropping out)
+- Manging course capacity (placements)

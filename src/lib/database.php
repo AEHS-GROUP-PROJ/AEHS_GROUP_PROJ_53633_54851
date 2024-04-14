@@ -16,6 +16,7 @@ function sql ( $query, $single = FALSE )
 Performs an SQL request.
 
 For SELECT/SHOW/DESCRIBE/EXPLAIN returns the result as an associative array.
+
 For others - returns the count of rows affected.
 
 */

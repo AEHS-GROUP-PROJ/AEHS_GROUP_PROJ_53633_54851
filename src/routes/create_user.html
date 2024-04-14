@@ -1,4 +1,7 @@
-<h1>User registration</h1>
+<h1>
+	<i class="fa fa-user-plus"></i>
+	Create user
+</h1>
 <div id="<?=dom_id('create_user_form')?>" class="grid">
 	<div>Full name</div>
 	<div>
@@ -33,7 +36,7 @@
 	</div>
 	<div>Password</div>
 	<div>
-		<input type="password" name="password" autocomplete="new-password"  maxlength="50"/>
+		<input type="password" name="password" autocomplete="new-password" maxlength="50"/>
 	</div>
 	<div>Confirm password</div>
 	<div>
@@ -42,8 +45,8 @@
 	<div></div>
 	<div>
 		<div class="button" c-click="action(create_user,form(<?=dom_id('create_user_form')?>))">
-			<i class="fa fa-user-plus"></i>
-			<i>Create user</i>
+			<i class="fa fa-save"></i>
+			<i>Save</i>
 		</div>
 	</div>
 </div>

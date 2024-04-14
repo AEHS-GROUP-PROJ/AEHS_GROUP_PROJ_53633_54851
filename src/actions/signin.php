@@ -2,20 +2,9 @@
 
 // Checking inputs
 
-if
-(
-	!isset ( $_POST['email'] ) ||
-	!filter_var ( $_POST['email'] = str_wash ( $_POST['email'] ), FILTER_VALIDATE_EMAIL )
-)
+if ( !isset ( $_POST['email'] ) || !isset ( $_POST['password'] ) )
 {
-	message ( 'Please provide a valid email address', 2 );
-
-	return;
-}
-
-if ( !isset ( $_POST['password'] ) || !str_len ( $_POST['password'] ) )
-{
-	message ( 'Please enter your password', 2 );
+	message ( 'Payload missing', 3 );
 
 	return;
 }
@@ -26,11 +15,11 @@ if
 (
 	!$USER = sql ( '
 	SELECT `users`.id FROM `users` WHERE
-	`users`.email='.sql_escape ( $_POST['email'], 50 ).' AND
-	`users`.password_hash='.sql_escape ( hash ( 'sha256', $_POST['password'] ), 64 ), 1 )
+		`users`.email='.sql_escape ( $_POST['email'], 50 ).' AND
+		`users`.password_hash='.sql_escape ( hash ( 'sha256', $_POST['password'] ), 64 ), 1 )
 )
 {
-	message ( 'Password is invalid', 3 );
+	message ( 'Password is invalid', 2 );
 
 	return;
 }
@@ -63,8 +52,8 @@ if
 	return;
 }
 
-setcookie ( 'sis_token', $token, time () + 3600 );
+setcookie ( 'sis_token', $token, time () + 7200 );
 
 message ( 'You are now signed in', 1 );
 
-route ( 'home' );
+route ( 'my_courses' );

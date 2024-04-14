@@ -17,9 +17,9 @@ Last revision: 2024-04-14
 
 **User management:** The SIS provides administrators with tools to create, modify, and delete user accounts. Each account can be assigned one or more roles, such as student, lecturer, or administrator.
 
-**Course management:** Administrators and lecturers can create, edit, and manage course offerings within the system. They can specify course details such as title, description and enrollment capacity.
+**Course management:** Administrators and lecturers can create, edit, and manage course offerings within the system. They can specify course details such as title, description and enrolment capacity.
 
-**Enrollment management:** Administrators and lecturers can manage enrollment by approving or rejecting enrollment requests, adjusting course rosters, and generating enrollment reports.
+**enrolment management:** Administrators and lecturers can manage enrolment by approving or rejecting enrolment requests, adjusting course rosters, and generating enrolment reports.
 
 **Gradebook:** Teachers have access to a gradebook feature where they can record and manage student grades for their courses. Students can view their grades through their accounts.
 
@@ -51,5 +51,5 @@ Last revision: 2024-04-14
 - Basic user management
 - Course management
 - Ability to apply to courses and withdraw
-- Enrollment management (administration acceptance, dropping out)
+- Enrolment management (administration acceptance, dropping out)
 - Manging course capacity (placements)

@@ -51,7 +51,7 @@ Table attendance {
   student_id integer
 }
 
-Table enrollments {
+Table enrolments {
   student_id integer
   course_id integer
   applied_at datetime
@@ -78,9 +78,9 @@ Table assignment_submissions {
 
 Ref: "sessions"."user_id" > "users"."id"
 
-Ref: "users"."id" < "enrollments"."student_id"
+Ref: "users"."id" < "enrolments"."student_id"
 
-Ref: "courses"."id" < "enrollments"."course_id"
+Ref: "courses"."id" < "enrolments"."course_id"
 
 Ref: "courses"."id" < "assignments"."course_id"
 

@@ -18,14 +18,14 @@ if ( !isset ( $_POST['course'] ) || !str_fit ( '[1-9]\d{0,15}', $_POST['course']
 	return;
 }
 
-// Deleting the enrollment record
+// Deleting the enrolment record
 
 if
 (
 	sql ( '
-	DELETE FROM `enrollments` WHERE
-		`enrollments`.student_id='.$_USER['id'].' AND
-		`enrollments`.course_id='.$_POST['course'], 1 )
+	DELETE FROM `enrolments` WHERE
+		`enrolments`.student_id='.$_USER['id'].' AND
+		`enrolments`.course_id='.$_POST['course'], 1 )
 )
 	message ( 'You have successfully withdrawn from the course', 1 );
 

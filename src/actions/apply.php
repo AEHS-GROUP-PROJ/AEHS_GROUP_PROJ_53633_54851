@@ -40,7 +40,7 @@ if
 if
 (
 	!sql ( '
-	SELECT `courses`.places-COUNT(IF(`enrollments`.is_approved, 1, NULL)) AS `places_available`
+	SELECT `courses`.places-COUNT(IF(`enrollments`.is_accepted, 1, NULL)) AS `places_available`
 	FROM `courses`
 	LEFT JOIN `enrollments` ON `enrollments`.course_id=`courses`.id
 	WHERE

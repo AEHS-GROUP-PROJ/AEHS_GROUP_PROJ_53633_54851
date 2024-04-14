@@ -11,6 +11,8 @@ elseif ( $_POST['action'] === 'signout' )
 	require 'signout.php';
 elseif ( !$_USER )
 	message ( 'Access denied', 3 );
+elseif ( $_POST['action'] === 'accept' )
+	require 'accept.php';
 elseif ( $_POST['action'] === 'apply' )
 	require 'apply.php';
 elseif ( $_POST['action'] === 'create_course' )
@@ -21,6 +23,8 @@ elseif ( $_POST['action'] === 'delete_course' )
 	require 'delete_course.php';
 elseif ( $_POST['action'] === 'delete_user' )
 	require 'delete_user.php';
+elseif ( $_POST['action'] === 'dropout' )
+	require 'dropout.php';
 elseif ( $_POST['action'] === 'edit_course' )
 	require 'edit_course.php';
 elseif ( $_POST['action'] === 'edit_user' )

@@ -25,6 +25,16 @@ h1 {
 	margin-bottom: 36px;
 }
 
+h2 {
+	font-size: 30px;
+	font-weight: bold;
+	margin: 36px 0px 16px 0px;
+}
+
+h2:first-child {
+	margin-top: 0px;
+}
+
 i:not(.fa-fw) + i {
 	margin-left: 6px;
 }
@@ -82,6 +92,10 @@ div.grid {
 
 div.grid.cols_3 {
 	grid-template-columns: auto auto auto;
+}
+
+div.grid.cols_4 {
+	grid-template-columns: auto auto auto auto;
 }
 
 div.grid.cols_5 {

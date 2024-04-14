@@ -16,25 +16,30 @@ if ( $_USER )
 {
 	// Menu composition depending on user roles
 
+	if ( $_USER['is_student'] )
+		echo '<div class="menu_item" c-click="route(my_courses)">
+			<i class="fa fa-fw fa-leanpub"></i>
+			<i>My courses</i>
+		</div>';
+
 	if ( $_USER['is_admin'] )
-		echo '<div class="menu_item" c-click="route(create_user)">
-			<i class="fa fa-fw fa-user-plus"></i>
-			<i>User registration</i>
-		</div>
-		<div class="menu_item" c-click="route(user_management)">
+		echo '<div class="menu_item" c-click="route(user_management)">
 			<i class="fa fa-fw fa-users"></i>
 			<i>User management</i>
 		</div>
 		<div class="menu_item" c-click="route(course_management)">
 			<i class="fa fa-fw fa-graduation-cap"></i>
 			<i>Course management</i>
+		</div>
+		<div class="menu_item" c-click="route(enrollments)">
+			<i class="fa fa-fw fa-check-square-o"></i>
+			<i>Enrollments</i>
 		</div>';
 
 	echo '<div class="menu_item" c-click="action(signout)">
 		<i class="fa fa-fw fa-sign-out"></i>
 		<i>Sign out</i>
 	</div>';
-
 }
 
 ?>

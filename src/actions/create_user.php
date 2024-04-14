@@ -65,7 +65,7 @@ if ( $_POST['password'] !== $_POST['password_confirm'] )
 
 if ( sql ( 'SELECT 1 FROM `users` WHERE `users`.email='.sql_escape ( $_POST['email'], 50 ), 1 ) )
 {
-	message ( 'User with such an email already exists', 2 );
+	message ( 'User with such email already exists', 2 );
 
 	return;
 }

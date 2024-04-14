@@ -1,0 +1,51 @@
+<?php
+
+if
+(
+	!$COURSE = sql ( '
+	SELECT
+		`courses`.id,
+		`courses`.title,
+		`courses`.start_date,
+		`courses`.end_date,
+		`courses`.places
+	FROM `courses`
+	WHERE `courses`.id='.str_sub ( $_GET['route'], 12 ) , 1 )
+)
+{
+	echo ( '<h1>Course not found</h1>' );
+
+	return;
+}
+
+?>
+
+<h1>
+	<i class="fa fa-graduation-cap"></i>
+	<i><?=str_html ( $COURSE['title'] )?></i>
+</h1>
+<div id="<?=dom_id('edit_course_form')?>" class="grid">
+	<div>Title</div>
+	<div>
+		<input type="text" name="title" maxlength="50" value="<?=str_html ( $COURSE['title'] )?>"/>
+	</div>
+	<div>Start date</div>
+	<div>
+		<input type="date" name="start_date" value="<?=str_html ( $COURSE['start_date'] )?>"/>
+	</div>
+	<div>End date</div>
+	<div>
+		<input type="date" name="end_date" value="<?=str_html ( $COURSE['end_date'] )?>"/>
+	</div>
+	<div>Places</div>
+	<div>
+		<input type="number" name="places" min="1" max="999" value="<?=str_html ( $COURSE['places'] )?>"/>
+	</div>
+	<div></div>
+	<div>
+		<div class="button" c-click="action(edit_course,course:<?=$COURSE['id']?>,form(<?=dom_id('edit_course_form')?>))">
+			<i class="fa fa-save"></i>
+			<i>Save</i>
+		</div>
+	</div>
+</div>

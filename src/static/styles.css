@@ -135,9 +135,9 @@ div.button {
 	padding: 8px 16px;
 }
 
-i.red {
-	color:#FF0000;
-}
+.green { color:#009900; }
+.red { color:#FF0000; }
+.yellow { color:#FF6600; }
 
 *[c-click] {
 	cursor: pointer;

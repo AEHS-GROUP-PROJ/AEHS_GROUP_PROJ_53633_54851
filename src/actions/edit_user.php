@@ -72,6 +72,21 @@ if ( str_len ( $_POST['password'] ) )
 	}
 }
 
+// Checking if user already exists
+
+if
+(
+	sql ( '
+	SELECT 1 FROM `users` WHERE
+		`users`.id<>'.$_POST['user'].' AND
+		`users`.email='.sql_escape ( $_POST['email'], 50 ), 1 )
+)
+{
+	message ( 'User with such email already exists', 2 );
+
+	return;
+}
+
 // Updating the user record
 
 if

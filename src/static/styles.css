@@ -1,0 +1,166 @@
+* {
+	box-sizing: border-box;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-color: #CCCCCC;
+	color: #333333;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 30px;
+}
+
+h1 {
+	font-size: 60px;
+	margin-bottom: 32px;
+}
+
+h2 {
+	font-size: 30px;
+	font-weight: bold;
+	margin: 32px 0px 16px 0px;
+}
+
+h2:first-child {
+	margin-top: 0px;
+}
+
+i:not(.fa-fw) + i {
+	margin-left: 6px;
+}
+
+#menu {
+	background-color: #333333;
+	color: #FFFFFF;
+	min-height: 100%;
+	padding: 24px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 400px;
+}
+
+#menu > h1 {
+	font-weight: bold;
+	line-height: 32px;
+}
+
+#menu > h1 > span {
+	color: #FF9900;
+}
+
+#menu > div.menu_item + div.menu_item {
+	margin-top: 16px;
+}
+
+#content {
+	position: fixed;
+	top: 0;
+	left: 400px;
+	padding: 24px;
+}
+
+#message {
+	background-color: #FFFFFF;
+	border-radius: 8px;
+	display: none;
+	gap: 16px;
+	grid-template-columns: auto auto;
+	margin: 16px;
+	max-width: min(512px, 100vw);
+	padding: 16px;
+	position: fixed;
+	right: 0px;
+	top: 0px;
+}
+
+div.grid {
+	display: grid;
+	grid-template-columns: auto auto;
+	gap: 16px;
+}
+
+div.grid.cols_3 {
+	grid-template-columns: auto auto auto;
+}
+
+div.grid.cols_4 {
+	grid-template-columns: auto auto auto auto;
+}
+
+div.grid.cols_5 {
+	grid-template-columns: auto auto auto auto auto;
+}
+
+div.grid > div {
+	white-space: nowrap;
+}
+
+div.grid_header {
+	border-bottom: 1px solid #000000;
+	font-weight: bold;
+}
+
+label + label {
+	margin-left: 16px;
+}
+
+input[type=checkbox] {
+	height: 0.75em;
+	width: 0.75em;
+}
+
+input[type=date],
+input[type=number],
+input[type=text],
+input[type=password] {
+	border: 2px solid #666666;
+	border-radius: 4px;
+	font-size: 16px;
+	line-height: 18px;
+	padding: 4px;
+}
+
+input[type=date],
+input[type=number] {
+	width: 400px;
+}
+
+input[type=text],
+input[type=password] {
+	width: 400px;
+}
+
+div.button {
+	border-radius: 8px;
+	color: #FFFFFF;
+	display: inline-block;
+	background-color: #333333;
+	padding: 8px 16px;
+}
+
+.green { color:#009900; }
+.red { color:#FF0000; }
+.yellow { color:#FF6600; }
+
+*[c-click] {
+	cursor: pointer;
+}
+
+*[c-click]:hover {
+	opacity: 0.69;
+}
+
+*.ralign {
+	text-align: right;
+}

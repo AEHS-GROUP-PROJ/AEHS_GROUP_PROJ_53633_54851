@@ -1,0 +1,29 @@
+<h1>
+	<i class="fa fa-graduation-cap"></i>
+	Create course
+</h1>
+<div id="<?=dom_id('create_course_form')?>" class="grid">
+	<div>Title</div>
+	<div>
+		<input type="text" name="title" autocomplete="off" maxlength="50"/>
+	</div>
+	<div>Start date</div>
+	<div>
+		<input type="date" name="start_date" value="<?=date ( 'Y-m-d', strtotime ( 'first day of +1 month' ) )?>"/>
+	</div>
+	<div>End date</div>
+	<div>
+		<input type="date" name="end_date" value="<?=date ( 'Y-m-d', strtotime ( 'first day of +6 month' ) )?>"/>
+	</div>
+	<div>Places</div>
+	<div>
+		<input type="number" name="places" min="1" max="999" value="100"/>
+	</div>
+	<div></div>
+	<div>
+		<div class="button" c-click="action(create_course,form(<?=dom_id('create_course_form')?>))">
+			<i class="fa fa-save"></i>
+			<i>Save</i>
+		</div>
+	</div>
+</div>

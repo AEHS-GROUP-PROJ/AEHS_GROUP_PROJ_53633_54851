@@ -1,0 +1,37 @@
+<h1>
+	<i class="fa fa-users"></i>
+	User management
+</h1>
+<div class="grid cols_4">
+	<div class="grid_header">Full Name</div>
+	<div class="grid_header">Email</div>
+	<div class="grid_header">Phone</div>
+	<div></div>
+	<?php
+
+	$USERS = sql ( '
+	SELECT
+		`users`.id,
+		`users`.email,
+		`users`.full_name,
+		`users`.phone
+	FROM `users`
+	ORDER BY `users`.full_name ASC' );
+
+	foreach ( $USERS as $USER )
+		echo '<div>'.str_html ( $USER['full_name'] ).'</div>
+		<div>'.str_html ( $USER['email'] ).'</div>
+		<div>'.str_html ( $USER['phone'] ).'</div>
+		<div>
+			<i class="fa fa-pencil" c-click="route(edit_user_'.$USER['id'].')"></i>
+			<i class="fa fa-trash red" c-click="action(delete_user,user:'.$USER['id'].')"></i>
+		</div>';
+
+	?>
+	<div>
+		<div class="button" c-click="route(create_user)">
+			<i class="fa fa-user-plus"></i>
+			<i>Create user</i>
+		</div>
+	</div>
+</div>

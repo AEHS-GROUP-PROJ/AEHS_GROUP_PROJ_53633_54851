@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set ('Europe/Warsaw'); 
+
 if
 (
 	!mb_internal_encoding ( 'UTF-8' ) ||
@@ -45,7 +47,11 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 
 	// Routing to the requested page
 
-	if ( $_GET['route'] === 'create_user' )
+	if ( $_GET['route'] === 'course_management' )
+		require 'routes/course_management.html';
+	elseif ( $_GET['route'] === 'create_course' )
+		require 'routes/create_course.html';
+	elseif ( $_GET['route'] === 'create_user' )
 		require 'routes/create_user.html';
 	elseif ( str_fit ( 'edit_user_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_user.html';

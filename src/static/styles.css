@@ -84,6 +84,10 @@ div.grid.cols_3 {
 	grid-template-columns: auto auto auto;
 }
 
+div.grid.cols_5 {
+	grid-template-columns: auto auto auto auto auto;
+}
+
 div.grid > div {
 	white-space: nowrap;
 }
@@ -102,6 +106,8 @@ input[type=checkbox] {
 	width: 0.75em;
 }
 
+input[type=date],
+input[type=number],
 input[type=text],
 input[type=password] {
 	border: 2px solid #666666;
@@ -109,6 +115,15 @@ input[type=password] {
 	font-size: 16px;
 	line-height: 18px;
 	padding: 4px;
+}
+
+input[type=date],
+input[type=number] {
+	width: 400px;
+}
+
+input[type=text],
+input[type=password] {
 	width: 400px;
 }
 
@@ -130,4 +145,8 @@ i.red {
 
 *[c-click]:hover {
 	opacity: 0.69;
+}
+
+*.ralign {
+	text-align: right;
 }

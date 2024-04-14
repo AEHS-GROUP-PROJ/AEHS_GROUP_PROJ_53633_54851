@@ -11,8 +11,12 @@ elseif ( $_POST['action'] === 'signout' )
 	require 'signout.php';
 elseif ( !$_USER )
 	message ( 'Access denied', 3 );
+elseif ( $_POST['action'] === 'create_course' )
+	require 'create_course.php';
 elseif ( $_POST['action'] === 'create_user' )
 	require 'create_user.php';
+elseif ( $_POST['action'] === 'delete_course' )
+	require 'delete_course.php';
 elseif ( $_POST['action'] === 'delete_user' )
 	require 'delete_user.php';
 elseif ( $_POST['action'] === 'edit_user' )

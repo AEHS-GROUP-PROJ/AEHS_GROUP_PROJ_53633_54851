@@ -35,7 +35,7 @@
 
 					if (!form) continue
 
-					let inputs = form.querySelectorAll('input[type=text],input[type=password]')
+					let inputs = form.querySelectorAll('input[type=date],input[type=number],input[type=text],input[type=password]')
 
 					for (let j = 0; j < inputs.length; j++)
 					{

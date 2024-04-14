@@ -1,0 +1,38 @@
+<h1>Course management</h1>
+<div class="grid cols_5">
+	<div class="grid_header">Title</div>
+	<div class="grid_header">Start date</div>
+	<div class="grid_header">End date</div>
+	<div class="grid_header">Availability</div>
+	<div></div>
+	<?php
+
+	$COURSES = sql ( '
+	SELECT
+		`courses`.id,
+		`courses`.title,
+		`courses`.start_date,
+		`courses`.end_date,
+		`courses`.places
+	FROM `courses`
+	ORDER BY `courses`.title ASC' );
+
+	foreach ( $COURSES as $COURSE )
+		echo '<div>
+			<i class="fa fa-graduation-cap"></i>
+			<i>'.str_html ( $COURSE['title'] ).'</i>
+		</div>
+		<div>'.$COURSE['start_date'].'</div>
+		<div>'.$COURSE['end_date'].'</div>
+		<div class="ralign">'.$COURSE['places'].'</div>
+		<div>
+			<i class="fa fa-pencil" c-click="route(edit_course_'.$COURSE['id'].')"></i>
+			<i class="fa fa-trash red" c-click="action(delete_course,course:'.$COURSE['id'].')"></i>
+		</div>';
+
+	?>
+	<div class="button" c-click="route(create_course)">
+		<i class="fa fa-plus"></i>
+		<i>Create course</i>
+	</div>
+</div>

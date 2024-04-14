@@ -49,7 +49,7 @@ CREATE TABLE `attendance` (
   `student_id` integer
 );
 
-CREATE TABLE `enrollments` (
+CREATE TABLE `enrolments` (
   `student_id` integer,
   `course_id` integer,
   `applied_at` datetime,
@@ -76,9 +76,9 @@ CREATE TABLE `assignment_submissions` (
 
 ALTER TABLE `sessions` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
-ALTER TABLE `enrollments` ADD FOREIGN KEY (`student_id`) REFERENCES `users` (`id`);
+ALTER TABLE `enrolments` ADD FOREIGN KEY (`student_id`) REFERENCES `users` (`id`);
 
-ALTER TABLE `enrollments` ADD FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
+ALTER TABLE `enrolments` ADD FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 
 ALTER TABLE `assignments` ADD FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 

@@ -22,32 +22,32 @@ if
 	return;
 }
 
-// Checking if enrollment exists
+// Checking if enrolment exists
 
 if
 (
 	!sql ( '
-	SELECT 1 FROM `enrollments` WHERE
-		`enrollments`.student_id='.$_POST['student'].' AND
-		`enrollments`.course_id='.$_POST['course'], 1 )
+	SELECT 1 FROM `enrolments` WHERE
+		`enrolments`.student_id='.$_POST['student'].' AND
+		`enrolments`.course_id='.$_POST['course'], 1 )
 )
 {
-	message ( 'The enrollment does not exist', 2 );
+	message ( 'The enrolment does not exist', 2 );
 
-	route ( 'enrollments' );
+	route ( 'enrolments' );
 
 	return;
 }
 
-// Updating the enrollment record
+// Updating the enrolment record
 
 if
 (
 	sql ( '
-	UPDATE `enrollments` SET `enrollments`.is_accepted=1 WHERE
-		`enrollments`.student_id='.$_POST['student'].' AND
-		`enrollments`.course_id='.$_POST['course'], 1 )
+	UPDATE `enrolments` SET `enrolments`.is_accepted=1 WHERE
+		`enrolments`.student_id='.$_POST['student'].' AND
+		`enrolments`.course_id='.$_POST['course'], 1 )
 )
 	message ( 'The student has been accepted', 1 );
 
-route ( 'enrollments' );
+route ( 'enrolments' );

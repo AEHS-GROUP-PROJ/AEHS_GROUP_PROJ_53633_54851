@@ -26,16 +26,16 @@
 		`courses`.start_date,
 		`courses`.end_date,
 		`courses`.places,
-		COUNT(IF(`enrollments`.student_id='.$_USER['id'].', 1, NULL))>0 AS `applied`,
-		COUNT(IF(`enrollments`.student_id='.$_USER['id'].' AND `enrollments`.is_accepted>0, 1, NULL))>0 AS `accepted`
+		COUNT(IF(`enrolments`.student_id='.$_USER['id'].', 1, NULL))>0 AS `applied`,
+		COUNT(IF(`enrolments`.student_id='.$_USER['id'].' AND `enrolments`.is_accepted>0, 1, NULL))>0 AS `accepted`
 	FROM `courses`
-	LEFT JOIN `enrollments` ON `enrollments`.course_id=`courses`.id
+	LEFT JOIN `enrolments` ON `enrolments`.course_id=`courses`.id
 	GROUP BY `courses`.id
 	HAVING
 		`applied`>0 OR
 		(
 			`courses`.start_date>\''.date ( 'Y-m-d' ).'\' AND
-			(`courses`.places-COUNT(IF(`enrollments`.is_accepted>0, 1, NULL)))>0
+			(`courses`.places-COUNT(IF(`enrolments`.is_accepted>0, 1, NULL)))>0
 		)
 	ORDER BY
 		`accepted` DESC,

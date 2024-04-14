@@ -59,8 +59,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/edit_course.html';
 	elseif ( str_fit ( 'edit_user_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_user.html';
-	elseif ( $_GET['route'] === 'enrollments' )
-		require 'routes/enrollments.html';
+	elseif ( $_GET['route'] === 'enrolments' )
+		require 'routes/enrolments.html';
 	elseif ( $_GET['route'] === 'my_courses' )
 		require 'routes/my_courses.html';
 	elseif ( $_GET['route'] === 'signin' )

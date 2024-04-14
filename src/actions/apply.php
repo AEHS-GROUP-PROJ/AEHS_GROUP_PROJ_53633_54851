@@ -23,9 +23,9 @@ if ( !isset ( $_POST['course'] ) || !str_fit ( '[1-9]\d{0,15}', $_POST['course']
 if
 (
 	sql ( '
-	SELECT 1 FROM `enrollments` WHERE
-		`enrollments`.student_id='.$_USER['id'].' AND
-		`enrollments`.course_id='.$_POST['course'], 1 )
+	SELECT 1 FROM `enrolments` WHERE
+		`enrolments`.student_id='.$_USER['id'].' AND
+		`enrolments`.course_id='.$_POST['course'], 1 )
 )
 {
 	message ( 'You have already applied for this course', 2 );
@@ -40,9 +40,9 @@ if
 if
 (
 	!sql ( '
-	SELECT `courses`.places-COUNT(IF(`enrollments`.is_accepted, 1, NULL)) AS `places_available`
+	SELECT `courses`.places-COUNT(IF(`enrolments`.is_accepted, 1, NULL)) AS `places_available`
 	FROM `courses`
-	LEFT JOIN `enrollments` ON `enrollments`.course_id=`courses`.id
+	LEFT JOIN `enrolments` ON `enrolments`.course_id=`courses`.id
 	WHERE
 		`courses`.id='.$_POST['course'].' AND
 		`courses`.start_date>\''.date ( 'Y-m-d' ).'\'
@@ -57,15 +57,15 @@ if
 	return;
 }
 
-// Creating an enrollment record
+// Creating an enrolment record
 
 if
 (
 	!sql ( '
-	INSERT INTO `enrollments`
+	INSERT INTO `enrolments`
 	(
-		`enrollments`.student_id,
-		`enrollments`.course_id
+		`enrolments`.student_id,
+		`enrolments`.course_id
 	)
 	VALUES
 	(
@@ -74,7 +74,7 @@ if
 	)', 1 )
 )
 {
-	message ( 'Failed to create an enrollment', 3 );
+	message ( 'Failed to create an enrolment', 3 );
 
 	return;
 }

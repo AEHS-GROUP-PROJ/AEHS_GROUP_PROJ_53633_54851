@@ -1,6 +1,6 @@
 <h1>
 	<i class="fa fa-check-square-o"></i>
-	Enrollments
+	Enrolments
 </h1>
 <?php
 
@@ -12,9 +12,9 @@ SELECT
 	`courses`.title,
 	`courses`.start_date,
 	`courses`.places,
-	COUNT(IF(`enrollments`.is_accepted>0, 1, NULL)) AS `accepted`
-FROM `enrollments`
-JOIN `courses` ON `courses`.id=`enrollments`.course_id
+	COUNT(IF(`enrolments`.is_accepted>0, 1, NULL)) AS `accepted`
+FROM `enrolments`
+JOIN `courses` ON `courses`.id=`enrolments`.course_id
 WHERE `courses`.end_date>=\''.date ( 'Y-m-d' ).'\'
 GROUP BY `courses`.id
 ORDER BY `courses`.title ASC' );
@@ -38,10 +38,10 @@ foreach ( $COURSES as $COURSE )
 		`users`.id,
 		`users`.email,
 		`users`.full_name,
-		`enrollments`.is_accepted
-	FROM `enrollments`
-	JOIN `users` ON `users`.id=`enrollments`.student_id
-	WHERE `enrollments`.course_id='.$COURSE['id'].'
+		`enrolments`.is_accepted
+	FROM `enrolments`
+	JOIN `users` ON `users`.id=`enrolments`.student_id
+	WHERE `enrolments`.course_id='.$COURSE['id'].'
 	ORDER BY
 		`users`.full_name ASC,
 		`users`.id ASC' );

@@ -6,7 +6,7 @@
 	<div class="grid_header">Title</div>
 	<div class="grid_header">Start date</div>
 	<div class="grid_header">End date</div>
-	<div class="grid_header">Enrollments</div>
+	<div class="grid_header">enrolments</div>
 	<div></div>
 	<?php
 
@@ -17,9 +17,9 @@
 		`courses`.start_date,
 		`courses`.end_date,
 		`courses`.places,
-		COUNT(IF(`enrollments`.is_accepted>0, 1, NULL)) AS `accepted`
+		COUNT(IF(`enrolments`.is_accepted>0, 1, NULL)) AS `accepted`
 	FROM `courses`
-	LEFT JOIN `enrollments` ON `enrollments`.course_id=`courses`.id
+	LEFT JOIN `enrolments` ON `enrolments`.course_id=`courses`.id
 	GROUP BY `courses`.id
 	ORDER BY
 		`courses`.start_date DESC,

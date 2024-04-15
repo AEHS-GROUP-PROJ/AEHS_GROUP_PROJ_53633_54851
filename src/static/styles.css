@@ -64,7 +64,8 @@ i:not(.fa-fw) + i {
 }
 
 #content {
-	position: fixed;
+	position: relative;
+	display: inline-block;
 	top: 0;
 	left: 400px;
 	padding: 24px;

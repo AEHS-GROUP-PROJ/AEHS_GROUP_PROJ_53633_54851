@@ -52,4 +52,11 @@ Last revision: 2024-04-14
 - Course management
 - Ability to apply to courses and withdraw
 - Enrolment management (administration acceptance, dropping out)
-- Manging course capacity (placements)
+- Managing course capacity (placements)
+
+### Setup instructions
+
+1. Make sure your environment has PHP and MysqL set up and running.
+2. Import ``/db/schema.sql`` to set up the database schema.
+3. Update ``/src/lib/database.php`` file with your system's database credentials.
+3. Serve the ``/src`` directory with a web server of your choice (e.g. Apache).

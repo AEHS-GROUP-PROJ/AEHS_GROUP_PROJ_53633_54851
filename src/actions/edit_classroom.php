@@ -13,7 +13,7 @@ if ( !$_USER['is_admin'] )
 
 if
 (
-	!isset ( $_POST['classroom'] ) || !str_fit ( '[1-9]\d{0,15}', $_POST['user'] ) ||
+	!isset ( $_POST['classroom'] ) || !str_fit ( '[1-9]\d{0,15}', $_POST['classroom'] ) ||
 	!isset ( $_POST['title'] ) ||
 	!isset ( $_POST['location'] )
 )
@@ -58,8 +58,8 @@ if
 (
 	sql ( '
 	UPDATE `classrooms` SET
-		`classrooms`.title='.sql_escape ( $_POST['email'], 50 ).',
-		`classrooms`.location='.sql_escape ( $_POST['full_name'], 50 ).'
+		`classrooms`.title='.sql_escape ( $_POST['title'], 50 ).',
+		`classrooms`.location='.sql_escape ( $_POST['location'], 50 ).'
 	WHERE `classrooms`.id='.$_POST['classroom'], 1 )
 )
 	message ( 'Classroom successfully updated', 1 );

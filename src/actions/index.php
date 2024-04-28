@@ -30,7 +30,7 @@ elseif ( $_POST['action'] === 'delete_user' )
 elseif ( $_POST['action'] === 'dropout' )
 	require 'dropout.php';
 elseif ( $_POST['action'] === 'edit_classroom' )
-	require 'edit_course.php';
+	require 'edit_classroom.php';
 elseif ( $_POST['action'] === 'edit_course' )
 	require 'edit_course.php';
 elseif ( $_POST['action'] === 'edit_user' )

@@ -23,7 +23,7 @@ foreach ( $COURSES as $COURSE )
 {
 	echo '<h2>
 		'.str_html ( $COURSE['title'] ).'
-		<i class="'.( (int) $COURSE['accepted'] < (int) $COURSE['places'] ? 'green' : 'red' ).'">('.$COURSE['accepted'].'/'.$COURSE['places'].')</i>
+		<i class="'.( (int) $COURSE['accepted'] < (int) $COURSE['places'] ? 'green' : 'red' ).'">'.$COURSE['accepted'].' / '.$COURSE['places'].'</i>
 	</h2>
 	<div class="grid cols_4">
 		<div class="grid_header">Full Name</div>

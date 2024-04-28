@@ -1,0 +1,37 @@
+<h1>
+	<i class="fa fa-building-o"></i>
+	Classrooms
+</h1>
+<div class="grid cols_3">
+	<div class="grid_header">Title</div>
+	<div class="grid_header">Location</div>
+	<div></div>
+	<?php
+
+	$CLASSROOMS = sql ( '
+	SELECT
+		`classrooms`.id,
+		`classrooms`.title,
+		`classrooms`.location
+	FROM `classrooms`
+	ORDER BY `classrooms`.title ASC' );
+
+	foreach ( $CLASSROOMS as $CLASSROOM )
+		echo '<div>'.str_html ( $CLASSROOM['title'] ).'</div>
+		<div>
+			<i class="fa fa-map-marker"></i>
+			'.str_html ( $CLASSROOM['location'] ).'
+		</div>
+		<div>
+			<i class="fa fa-pencil" c-click="route(edit_classroom_'.$CLASSROOM['id'].')"></i>
+			<i class="fa fa-trash red" c-click="action(delete_classroom,classroom:'.$CLASSROOM['id'].')"></i>
+		</div>';
+
+	?>
+	<div>
+		<div class="button" c-click="route(create_classroom)">
+			<i class="fa fa-user-plus"></i>
+			<i>Create classroom</i>
+		</div>
+	</div>
+</div>

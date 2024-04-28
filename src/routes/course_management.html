@@ -6,7 +6,7 @@
 	<div class="grid_header">Title</div>
 	<div class="grid_header">Start date</div>
 	<div class="grid_header">End date</div>
-	<div class="grid_header">enrolments</div>
+	<div class="grid_header">Enrolments</div>
 	<div></div>
 	<?php
 
@@ -29,7 +29,7 @@
 		echo '<div>'.str_html ( $COURSE['title'] ).'</div>
 		<div>'.$COURSE['start_date'].'</div>
 		<div>'.$COURSE['end_date'].'</div>
-		<div class="ralign '.( (int) $COURSE['accepted'] < (int) $COURSE['places'] ? 'green' : 'red' ).'">'.$COURSE['places'].'</div>
+		<div class="ralign '.( (int) $COURSE['accepted'] < (int) $COURSE['places'] ? 'green' : 'red' ).'">'.$COURSE['accepted'].' / '.$COURSE['places'].'</div>
 		<div>
 			<i class="fa fa-pencil" c-click="route(edit_course_'.$COURSE['id'].')"></i>
 			<i class="fa fa-trash red" c-click="action(delete_course,course:'.$COURSE['id'].')"></i>

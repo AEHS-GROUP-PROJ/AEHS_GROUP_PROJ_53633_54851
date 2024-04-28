@@ -1,0 +1,41 @@
+<?php
+
+if
+(
+	!$CLASSROOM = sql ( '
+	SELECT
+		`classrooms`.id,
+		`classrooms`.title,
+		`classrooms`.location
+	FROM `classrooms`
+	WHERE `classrooms`.id='.str_sub ( $_GET['route'], 15 ) , 1 )
+)
+{
+	echo ( '<h1>Classroom not found</h1>' );
+
+	return;
+}
+
+?>
+
+<h1>
+	<i class="fa fa-building-o"></i>
+	<?=str_html ( $CLASSROOM['title'] )?>
+</h1>
+<div id="<?=dom_id('edit_classroom_form')?>" class="grid">
+	<div>Title</div>
+	<div>
+		<input type="text" name="title" autocomplete="off" maxlength="50" value="<?=str_html ( $CLASSROOM['title'] )?>"/>
+	</div>
+	<div>Location</div>
+	<div>
+		<input type="text" name="location" autocomplete="off" maxlength="50" value="<?=str_html ( $CLASSROOM['location'] )?>"/>
+	</div>
+	<div></div>
+	<div>
+		<div class="button" c-click="action(edit_classroom,classroom:<?=$CLASSROOM['id']?>,form(<?=dom_id('edit_classroom_form')?>))">
+			<i class="fa fa-save"></i>
+			<i>Save</i>
+		</div>
+	</div>
+</div>

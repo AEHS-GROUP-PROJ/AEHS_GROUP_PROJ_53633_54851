@@ -13,7 +13,7 @@ function route ( $route )
 
 function in ( $val )
 
-# Returns TRUE if any oh the args matches $val, otherwise returns FALSE
+# Returns TRUE if any of the args matches $val, otherwise returns FALSE
 
 {
 	foreach ( func_get_args () as $k => $arg )

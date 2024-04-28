@@ -52,7 +52,7 @@ if
 	return;
 }
 
-setcookie ( 'sis_token', $token, time () + 7200 );
+setcookie ( 'sis_token', $token, time () + 72000 );
 
 message ( 'You are now signed in', 1 );
 

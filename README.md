@@ -43,6 +43,7 @@ Last revision: 2024-04-14
 | ``/src/lib`` | Misc. helping functions |
 | ``/src/routes`` | Routes for app's UI layouts |
 | ``/src/static`` | Statically served content |
+| ``/tests`` | Unit tests |
 
 ### Currently implemented functionality
 
@@ -53,6 +54,7 @@ Last revision: 2024-04-14
 - Ability to apply to courses and withdraw
 - Enrolment management (administration acceptance, dropping out)
 - Managing course capacity (placements)
+- Managing classrooms
 
 ### Setup instructions
 

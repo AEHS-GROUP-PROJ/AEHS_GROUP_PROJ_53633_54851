@@ -49,12 +49,18 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 
 	if ( $_GET['route'] === 'apply' )
 		require 'routes/apply.html';
+	elseif ( $_GET['route'] === 'classrooms' )
+		require 'routes/classrooms.html';
 	elseif ( $_GET['route'] === 'course_management' )
 		require 'routes/course_management.html';
+	elseif ( $_GET['route'] === 'create_classroom' )
+		require 'routes/create_classroom.html';
 	elseif ( $_GET['route'] === 'create_course' )
 		require 'routes/create_course.html';
 	elseif ( $_GET['route'] === 'create_user' )
 		require 'routes/create_user.html';
+	elseif ( str_fit ( 'edit_classroom_[1-9]\d{0,15}', $_GET['route'] ) )
+		require 'routes/edit_classroom.html';
 	elseif ( str_fit ( 'edit_course_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_course.html';
 	elseif ( str_fit ( 'edit_user_[1-9]\d{0,15}', $_GET['route'] ) )

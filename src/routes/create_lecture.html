@@ -1,6 +1,6 @@
 <h1>
-	<i class="fa fa-calendar-plus-o"></i>
-	Schedule a lecture
+	<i class="fa fa-calendar"></i>
+	Create lecture
 </h1>
 <div id="<?=dom_id('create_lecture_form')?>" class="grid">
 	<div>Title</div>
@@ -9,7 +9,7 @@
 	</div>
 	<div>Starts at</div>
 	<div>
-		<input type="datetime-local" name="starts_at" value="<?= date ( 'Y-m-d\TH:i', strtotime ( '08:00 +1 day') ) ?>"/>
+		<input type="datetime-local" name="starts_at" value="<?=date ( 'Y-m-d\TH:i', strtotime ( '08:00 +1 day' ) )?>"/>
 	</div>
 	<div>Course</div>
 	<div>
@@ -57,19 +57,20 @@
 			$LOCATIONS = sql ( '
 			SELECT
 				`classrooms`.id,
-				`classrooms`.title
+				`classrooms`.title,
+				`classrooms`.capacity
 			FROM `classrooms`
 			ORDER BY `classrooms`.title ASC' );
 
 			foreach ( $LOCATIONS as $LOCATION )
-				echo '<option value="'.$LOCATION['id'].'">'.str_html ( $LOCATION['title'] ).'</option>';
+				echo '<option value="'.$LOCATION['id'].'">'.str_html ( $LOCATION['title'] ).' ('.$LOCATION['capacity'].' seats)</option>';
 
 			?>
 		</select>
 	</div>
 	<div></div>
 	<div>
-		<div class="button" c-click="action(create_user,form(<?=dom_id('create_lecture_form')?>))">
+		<div class="button" c-click="action(create_lecture,form(<?=dom_id('create_lecture_form')?>))">
 			<i class="fa fa-save"></i>
 			<i>Save</i>
 		</div>

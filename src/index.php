@@ -69,6 +69,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/enrolments.html';
 	elseif ( $_GET['route'] === 'my_courses' )
 		require 'routes/my_courses.html';
+	elseif ( $_GET['route'] === 'schedule' )
+		require 'routes/schedule.html';
 	elseif ( $_GET['route'] === 'signin' )
 		require 'routes/signin.html';
 	elseif ( $_GET['route'] === 'user_management' )

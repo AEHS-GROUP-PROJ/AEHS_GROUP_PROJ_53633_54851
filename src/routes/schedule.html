@@ -1,0 +1,83 @@
+<h1>
+	<i class="fa fa-calendar"></i>
+	Lecture scheduler
+</h1>
+
+<?php
+
+// First, we get the list of courses that have upcoming lectures
+
+$COURSES = sql ( '
+SELECT
+	`courses`.id,
+	`courses`.title,
+	`courses`.places,
+	COUNT(DISTINCT `enrolments`.student_id) AS `accepted`
+FROM `courses`
+LEFT JOIN `enrolments` ON `enrolments`.course_id=`courses`.id
+JOIN `lectures` ON
+	`lectures`.course_id=`courses`.id AND
+	`lectures`.starts_at > NOW()
+GROUP BY `courses`.id
+ORDER BY `courses`.title ASC' );
+
+foreach ( $COURSES as $COURSE )
+{
+	echo '<h2>
+		'.str_html ( $COURSE['title'] ).'
+		<span class="green">('.$COURSE['accepted'].' / '.$COURSE['places'].')</span>
+	</h2>
+	<div class="grid cols_5">
+		<div class="grid_header">Title</div>
+		<div class="grid_header">Lecturer</div>
+		<div class="grid_header">Location</div>
+		<div class="grid_header">Time</div>
+		<div></div>';
+
+	// Then, we get the list of upcoming lectures for each course
+
+	$LECTURES = sql ( '
+	SELECT
+		`lectures`.id,
+		`lectures`.title,
+		`lectures`.starts_at,
+		`users`.full_name AS `lecturer`,
+		`classrooms`.title AS `location`
+	FROM `lectures`
+	JOIN `users` ON `users`.id=`lectures`.lecturer_id
+	JOIN `classrooms` ON `classrooms`.id=`lectures`.classroom_id
+	WHERE
+		`lectures`.course_id='.$COURSE['id'].' AND
+		`lectures`.starts_at > NOW()
+	ORDER BY
+		`lectures`.starts_at ASC,
+		`lectures`.title ASC' );
+
+	foreach ( $LECTURES as $LECTURE )
+		echo '<div>'.str_html ( $LECTURE['title'] ).'</div>
+		<div>
+			<i class="fa fa-user"></i>
+			'.str_html ( $LECTURE['lecturer'] ).'
+		</div>
+		<div>
+			<i class="fa fa-map-marker"></i>
+			'.str_html ( $LECTURE['location'] ).'
+		</div>
+		<div>
+			'.date ( 'M j', strtotime ( $LECTURE['starts_at'] ) ).'
+			<i class="fa fa-clock-o"></i>
+			'.date ( 'H:i', strtotime ( $LECTURE['starts_at'] ) ).'
+		</div>
+		<div>
+			<i class="fa fa-pencil" c-click="route(edit_lecture_'.$LECTURE['id'].')"></i>
+			<i class="fa fa-trash red" c-click="action(delete_lecture,lecture:'.$LECTURE['id'].')"></i>
+		</div>';
+
+	echo '<div>
+			<div class="button" c-click="route(create_lecture)">
+				<i class="fa fa-plus"></i>
+				<i>Schedule a lecture</i>
+			</div>
+		</div>
+	</div>';
+}

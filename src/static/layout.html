@@ -22,6 +22,12 @@ if ( $_USER )
 			<i>My courses</i>
 		</div>';
 
+	if ( $_USER['is_admin'] || $_USER['is_lecturer'] )
+		echo '<div class="menu_item" c-click="route(schedule)">
+			<i class="fa fa-fw fa-calendar"></i>
+			<i>Lecture scheduler</i>
+		</div>';
+
 	if ( $_USER['is_admin'] )
 		echo '<div class="menu_item" c-click="route(user_management)">
 			<i class="fa fa-fw fa-users"></i>

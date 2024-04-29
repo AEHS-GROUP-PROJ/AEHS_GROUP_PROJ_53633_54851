@@ -6,7 +6,8 @@ if
 	SELECT
 		`classrooms`.id,
 		`classrooms`.title,
-		`classrooms`.location
+		`classrooms`.location,
+		`classrooms`.capacity
 	FROM `classrooms`
 	WHERE `classrooms`.id='.str_sub ( $_GET['route'], 15 ) , 1 )
 )
@@ -30,6 +31,10 @@ if
 	<div>Location</div>
 	<div>
 		<input type="text" name="location" autocomplete="off" maxlength="50" value="<?=str_html ( $CLASSROOM['location'] )?>"/>
+	</div>
+	<div>Capacity</div>
+	<div>
+		<input type="number" name="capacity" min="1" max="250" value="<?=str_html ( $CLASSROOM['capacity'] )?>"/>
 	</div>
 	<div></div>
 	<div>

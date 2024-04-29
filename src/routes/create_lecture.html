@@ -1,50 +1,75 @@
 <h1>
-	<i class="fa fa-user-plus"></i>
-	Create user
+	<i class="fa fa-calendar-plus-o"></i>
+	Schedule a lecture
 </h1>
-<div id="<?=dom_id('create_user_form')?>" class="grid">
-	<div>Full name</div>
+<div id="<?=dom_id('create_lecture_form')?>" class="grid">
+	<div>Title</div>
 	<div>
-		<input type="text" name="full_name" autocomplete="name" maxlength="50"/>
+		<input type="text" name="title" autocomplete="off" maxlength="50"/>
 	</div>
-	<div>Email</div>
+	<div>Starts at</div>
 	<div>
-		<input type="text" name="email" autocomplete="email" maxlength="50"/>
+		<input type="datetime-local" name="starts_at" value="<?= date ( 'Y-m-d\TH:i', strtotime ( '08:00 +1 day') ) ?>"/>
 	</div>
-	<div>Home address</div>
+	<div>Course</div>
 	<div>
-		<input type="text" name="address" autocomplete="street-address" maxlength="50"/>
+		<select name="course">
+			<?php
+
+			$COURSES = sql ( '
+			SELECT
+				`courses`.id,
+				`courses`.title
+			FROM `courses`
+			WHERE `courses`.end_date > NOW()
+			ORDER BY `courses`.title ASC' );
+
+			foreach ( $COURSES as $COURSE )
+				echo '<option value="'.$COURSE['id'].'">'.str_html ( $COURSE['title'] ).'</option>';
+
+			?>
+		</select>
 	</div>
-	<div>Phone number</div>
+	<div>Lecturer</div>
 	<div>
-		<input type="text" name="phone" autocomplete="mobile" maxlength="50"/>
+		<select name="lecturer">
+			<?php
+
+			$LECTURERS = sql ( '
+			SELECT
+				`users`.id,
+				`users`.full_name
+			FROM `users`
+			WHERE `users`.is_lecturer<>0
+			ORDER BY `users`.full_name ASC' );
+
+			foreach ( $LECTURERS as $LECTURER )
+				echo '<option value="'.$LECTURER['id'].'">'.str_html ( $LECTURER['full_name'] ).'</option>';
+
+			?>
+		</select>
 	</div>
-	<div>Roles</div>
+	<div>Location</div>
 	<div>
-		<label for="<?=dom_id('create_user_form_is_student')?>">
-			<input id="<?=dom_id('create_user_form_is_student')?>" type="checkbox" name="is_student" checked/>
-			Student
-		</label>
-		<label for="<?=dom_id('create_user_form_is_lecturer')?>">
-			<input id="<?=dom_id('create_user_form_is_lecturer')?>" type="checkbox" name="is_lecturer"/>
-			Lecturer
-		</label>
-		<label for="<?=dom_id('create_user_form_is_admin')?>">
-			<input id="<?=dom_id('create_user_form_is_admin')?>" type="checkbox" name="is_admin"/>
-			Admininstrator
-		</label>
-	</div>
-	<div>Password</div>
-	<div>
-		<input type="password" name="password" autocomplete="new-password" maxlength="50"/>
-	</div>
-	<div>Confirm password</div>
-	<div>
-		<input type="password" name="password_confirm" autocomplete="new-password" maxlength="50"/>
+		<select name="location">
+			<?php
+
+			$LOCATIONS = sql ( '
+			SELECT
+				`classrooms`.id,
+				`classrooms`.title
+			FROM `classrooms`
+			ORDER BY `classrooms`.title ASC' );
+
+			foreach ( $LOCATIONS as $LOCATION )
+				echo '<option value="'.$LOCATION['id'].'">'.str_html ( $LOCATION['title'] ).'</option>';
+
+			?>
+		</select>
 	</div>
 	<div></div>
 	<div>
-		<div class="button" c-click="action(create_user,form(<?=dom_id('create_user_form')?>))">
+		<div class="button" c-click="action(create_user,form(<?=dom_id('create_lecture_form')?>))">
 			<i class="fa fa-save"></i>
 			<i>Save</i>
 		</div>

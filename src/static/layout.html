@@ -17,9 +17,19 @@ if ( $_USER )
 	// Menu composition depending on user roles
 
 	if ( $_USER['is_student'] )
-		echo '<div class="menu_item" c-click="route(my_courses)">
+		echo '<div class="menu_item" c-click="route(my_lectures)">
+			<i class="fa fa-fw fa-line-chart"></i>
+			<i>My lectures</i>
+		</div>
+		<div class="menu_item" c-click="route(my_courses)">
 			<i class="fa fa-fw fa-leanpub"></i>
 			<i>My courses</i>
+		</div>';
+
+	if ( $_USER['is_admin'] || $_USER['is_lecturer'] )
+		echo '<div class="menu_item" c-click="route(lecture_schedule)">
+			<i class="fa fa-fw fa-calendar"></i>
+			<i>Lecture schedule</i>
 		</div>';
 
 	if ( $_USER['is_admin'] )

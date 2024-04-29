@@ -8,7 +8,7 @@ class CreateClassroomTest extends TestCase
         // Mock $_USER and $_POST superglobals
         global $_USER, $_POST;
         $_USER = ['is_admin' => true];
-        $_POST = ['title' => 'Test Classroom', 'location' => 'Test Location'];
+        $_POST = ['title' => 'Test Classroom', 'location' => 'Test Location', 'capacity' => '30'];
     }
 
     public function testAccessDeniedForNonAdmins()

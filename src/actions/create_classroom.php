@@ -11,7 +11,12 @@ if ( !$_USER['is_admin'] )
 
 // Input checks
 
-if ( !isset ( $_POST['title'] ) || !isset ( $_POST['location'] ) )
+if
+(
+	!isset ( $_POST['title'] ) ||
+	!isset ( $_POST['location'] ) ||
+	!isset ( $_POST['capacity'] )
+)
 {
 	message ( 'Payload missing', 3 );
 
@@ -28,6 +33,20 @@ if ( !str_len ( $_POST['title'] = str_wash ( $_POST['title'] ) ) )
 if ( !str_len ( $_POST['location'] = str_wash ( $_POST['location'] ) ) )
 {
 	message ( 'Please provide classroom\'s location', 2 );
+
+	return;
+}
+
+if ( !str_fit ( '\d+', $_POST['capacity'] ) )
+{
+	message ( 'Please provide classroom\'s capacity', 2 );
+
+	return;
+}
+
+if ( !intval ( $_POST['capacity'] ) )
+{
+	message ( 'Classroom has to accomodate at least one student', 2 );
 
 	return;
 }
@@ -49,12 +68,14 @@ if
 	INSERT INTO `classrooms`
 	(
 		`classrooms`.title,
-		`classrooms`.location
+		`classrooms`.location,
+		`classrooms`.capacity
 	)
 	VALUES
 	(
 		'.sql_escape ( $_POST['title'], 50 ).',
-		'.sql_escape ( $_POST['location'], 50 ).'
+		'.sql_escape ( $_POST['location'], 50 ).',
+		'.min ( intval ( $_POST['capacity'] ), 250 ).'
 	)', 1 )
 )
 {

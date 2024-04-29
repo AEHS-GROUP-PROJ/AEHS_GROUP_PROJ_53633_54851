@@ -1,0 +1,78 @@
+<h1>
+	<i class="fa fa-calendar"></i>
+	Create lecture
+</h1>
+<div id="<?=dom_id('create_lecture_form')?>" class="grid">
+	<div>Title</div>
+	<div>
+		<input type="text" name="title" autocomplete="off" maxlength="50"/>
+	</div>
+	<div>Starts at</div>
+	<div>
+		<input type="datetime-local" name="starts_at" value="<?=date ( 'Y-m-d\TH:i', strtotime ( '08:00 +1 day' ) )?>"/>
+	</div>
+	<div>Course</div>
+	<div>
+		<select name="course">
+			<?php
+
+			$COURSES = sql ( '
+			SELECT
+				`courses`.id,
+				`courses`.title
+			FROM `courses`
+			WHERE `courses`.end_date > NOW()
+			ORDER BY `courses`.title ASC' );
+
+			foreach ( $COURSES as $COURSE )
+				echo '<option value="'.$COURSE['id'].'">'.str_html ( $COURSE['title'] ).'</option>';
+
+			?>
+		</select>
+	</div>
+	<div>Lecturer</div>
+	<div>
+		<select name="lecturer">
+			<?php
+
+			$LECTURERS = sql ( '
+			SELECT
+				`users`.id,
+				`users`.full_name
+			FROM `users`
+			WHERE `users`.is_lecturer<>0
+			ORDER BY `users`.full_name ASC' );
+
+			foreach ( $LECTURERS as $LECTURER )
+				echo '<option value="'.$LECTURER['id'].'">'.str_html ( $LECTURER['full_name'] ).'</option>';
+
+			?>
+		</select>
+	</div>
+	<div>Location</div>
+	<div>
+		<select name="location">
+			<?php
+
+			$LOCATIONS = sql ( '
+			SELECT
+				`classrooms`.id,
+				`classrooms`.title,
+				`classrooms`.capacity
+			FROM `classrooms`
+			ORDER BY `classrooms`.title ASC' );
+
+			foreach ( $LOCATIONS as $LOCATION )
+				echo '<option value="'.$LOCATION['id'].'">'.str_html ( $LOCATION['title'] ).' ('.$LOCATION['capacity'].' seats)</option>';
+
+			?>
+		</select>
+	</div>
+	<div></div>
+	<div>
+		<div class="button" c-click="action(create_lecture,form(<?=dom_id('create_lecture_form')?>))">
+			<i class="fa fa-save"></i>
+			<i>Save</i>
+		</div>
+	</div>
+</div>

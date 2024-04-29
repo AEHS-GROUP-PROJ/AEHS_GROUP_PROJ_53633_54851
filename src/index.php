@@ -57,18 +57,26 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/create_classroom.html';
 	elseif ( $_GET['route'] === 'create_course' )
 		require 'routes/create_course.html';
+	elseif ( $_GET['route'] === 'create_lecture' )
+		require 'routes/create_lecture.html';
 	elseif ( $_GET['route'] === 'create_user' )
 		require 'routes/create_user.html';
 	elseif ( str_fit ( 'edit_classroom_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_classroom.html';
 	elseif ( str_fit ( 'edit_course_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_course.html';
+	elseif ( str_fit ( 'edit_lecture_[1-9]\d{0,15}', $_GET['route'] ) )
+		require 'routes/edit_lecture.html';
 	elseif ( str_fit ( 'edit_user_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_user.html';
 	elseif ( $_GET['route'] === 'enrolments' )
 		require 'routes/enrolments.html';
+	elseif ( $_GET['route'] === 'lecture_schedule' )
+		require 'routes/lecture_schedule.html';
 	elseif ( $_GET['route'] === 'my_courses' )
 		require 'routes/my_courses.html';
+	elseif ( $_GET['route'] === 'my_lectures' )
+		require 'routes/my_lectures.html';
 	elseif ( $_GET['route'] === 'signin' )
 		require 'routes/signin.html';
 	elseif ( $_GET['route'] === 'user_management' )

@@ -2,9 +2,10 @@
 	<i class="fa fa-building-o"></i>
 	Classrooms
 </h1>
-<div class="grid cols_3">
+<div class="grid cols_4">
 	<div class="grid_header">Title</div>
 	<div class="grid_header">Location</div>
+	<div class="grid_header">Capacity</div>
 	<div></div>
 	<?php
 
@@ -12,7 +13,8 @@
 	SELECT
 		`classrooms`.id,
 		`classrooms`.title,
-		`classrooms`.location
+		`classrooms`.location,
+		`classrooms`.capacity
 	FROM `classrooms`
 	ORDER BY `classrooms`.title ASC' );
 
@@ -21,6 +23,10 @@
 		<div>
 			<i class="fa fa-map-marker"></i>
 			'.str_html ( $CLASSROOM['location'] ).'
+		</div>
+		<div>
+			<i class="fa fa-user"></i>
+			'.$CLASSROOM['capacity'].'
 		</div>
 		<div>
 			<i class="fa fa-pencil" c-click="route(edit_classroom_'.$CLASSROOM['id'].')"></i>

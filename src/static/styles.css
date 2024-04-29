@@ -87,24 +87,25 @@ i:not(.fa-fw) + i {
 
 div.grid {
 	display: grid;
-	grid-template-columns: auto auto;
-	gap: 16px;
+	grid-template-columns: auto 100fr;
+	gap: 16px 24px;
 }
 
 div.grid.cols_3 {
-	grid-template-columns: auto auto auto;
+	grid-template-columns: auto auto 100fr;
 }
 
 div.grid.cols_4 {
-	grid-template-columns: auto auto auto auto;
+	grid-template-columns: auto auto auto 100fr;
 }
 
 div.grid.cols_5 {
-	grid-template-columns: auto auto auto auto auto;
+	grid-template-columns: auto auto auto auto 100fr;
 }
 
 div.grid > div {
 	white-space: nowrap;
+
 }
 
 div.grid_header {
@@ -122,9 +123,11 @@ input[type=checkbox] {
 }
 
 input[type=date],
+input[type=datetime-local],
 input[type=number],
 input[type=text],
-input[type=password] {
+input[type=password],
+select {
 	border: 2px solid #666666;
 	border-radius: 4px;
 	font-size: 16px;
@@ -133,7 +136,9 @@ input[type=password] {
 }
 
 input[type=date],
-input[type=number] {
+input[type=datetime-local],
+input[type=number],
+select {
 	width: 400px;
 }
 

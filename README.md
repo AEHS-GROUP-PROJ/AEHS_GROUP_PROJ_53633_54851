@@ -55,6 +55,7 @@ Last revision: 2024-04-14
 - Enrolment management (administration acceptance, dropping out)
 - Managing course capacity (placements)
 - Managing classrooms
+- Scheduling lectures (including schedule integrity control)
 
 ### Setup instructions
 

@@ -56,6 +56,7 @@ Last revision: 2024-04-14
 - Managing course capacity (placements)
 - Managing classrooms
 - Scheduling lectures (including schedule integrity control)
+- Tracking lecture attendance
 
 ### Setup instructions
 

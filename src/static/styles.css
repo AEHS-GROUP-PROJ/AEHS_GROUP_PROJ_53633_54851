@@ -170,3 +170,7 @@ div.button {
 *.ralign {
 	text-align: right;
 }
+
+*.bold {
+	font-weight: bold;
+}

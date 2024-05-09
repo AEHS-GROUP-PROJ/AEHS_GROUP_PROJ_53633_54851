@@ -1,6 +1,26 @@
+<?php
+
+// Check if assignment exists and has submissions
+
+if
+(
+	!$ASSIGNMENT = sql ('
+	SELECT `assignments`.title
+	FROM `assignments`
+	JOIN `assignment_submissions` ON `assignment_submissions`.assignment_id=`assignments`.id
+	WHERE `assignments`.id='.str_sub ( $_GET['route'], 8 ), 1
+	)
+)
+{
+	echo '<h1>Assignment not found</h1>';
+
+	return;
+}
+
+?>
 <h1>
-	<i class="fa fa-pencil-square-o"></i>
-	Grading
+	<i class="fa fa-file-text-o"></i>
+	<?=str_html ( $ASSIGNMENT['title'] )?>
 </h1>
 <div class="grid cols_4">
 		<div class="grid_header">Student Name</div>
@@ -39,23 +59,16 @@ foreach ( $SUBMISSIONS as $SUBMISSION )
 
 	if ( $SUBMISSION['grade'] )
 		echo '<div>
-			<span class="red" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
-				<i class="fa fa-extermal-link"></i>
-				Pending
-			</span>
-		</div>';
-	elseif ( (int) $SUBMISSION['grade'] < 5 )
-		echo '<div>
-			<span class="yellow" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
-				<i class="fa fa-extermal-link"></i>
+			<span class="'.( (int) $SUBMISSION['grade'] < 5 ? 'yellow' : 'green' ).' bold" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
+				<i class="fa fa-external-link"></i>
 				'.$SUBMISSION['grade'].'
 			</span>
 		</div>';
 	else
 		echo '<div>
-			<span class="green" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
-				<i class="fa fa-extermal-link"></i>
-				'.$SUBMISSION['grade'].'
+			<span class="red" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
+				<i class="fa fa-external-link"></i>
+				Pending
 			</span>
 		</div>';
 }

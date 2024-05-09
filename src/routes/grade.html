@@ -1,0 +1,54 @@
+<h1>
+	<i class="fa fa-pencil-square-o"></i>
+	Grading
+</h1>
+<div class="grid cols_4">
+		<div class="grid_header">Student Name</div>
+		<div class="grid_header">Email</div>
+		<div class="grid_header">Submitted At</div>
+		<div class="grid_header">Grade</div>
+<?php
+
+// Getting the list of assignment submissions
+
+$SUBMISSIONS = sql ( '
+SELECT
+	`assignment_submissions`.assignment_id AS `id`,
+	`assignment_submissions`.student_id,
+	`assignment_submissions`.submitted_at,
+	`assignment_submissions`.grade,
+	`users`.email,
+	`users`.full_name
+FROM `assignment_submissions`
+JOIN `users` ON `users`.id=`assignment_submissions`.student_id
+WHERE `assignment_submissions`.assignment_id='.str_sub ( $_GET['route'], 8 ).'
+ORDER BY
+	`users`.full_name ASC,
+	`users`.email ASC' );
+
+foreach ( $SUBMISSIONS as $SUBMISSION )
+{
+
+	echo '
+	<div>
+		<i class="fa fa-user"></i>
+		'.str_html ( $SUBMISSION['full_name'] ).'
+	</div>
+	<div>'.str_html ( $SUBMISSION['email'] ).'</div>
+	<div>'.date ( 'M jS H:i', strtotime ( $SUBMISSION['submitted_at'] ) ).'</div>';
+
+	if ( $SUBMISSION['grade'] )
+		echo '<div>
+			<span class="'.( (int) $SUBMISSION['grade'] < 5 ? 'yellow' : 'green' ).' bold" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
+				<i class="fa fa-external-link"></i>
+				'.$SUBMISSION['grade'].'
+			</span>
+		</div>';
+	else
+		echo '<div>
+			<span class="red" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
+				<i class="fa fa-external-link"></i>
+				Pending
+			</span>
+		</div>';
+}

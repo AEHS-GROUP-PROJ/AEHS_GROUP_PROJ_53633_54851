@@ -21,7 +21,7 @@
 				`courses`.id,
 				`courses`.title
 			FROM `courses`
-			WHERE `courses`.end_date > NOW()
+			WHERE `courses`.end_date>NOW()
 			ORDER BY `courses`.title ASC' );
 
 			foreach ( $COURSES as $COURSE )

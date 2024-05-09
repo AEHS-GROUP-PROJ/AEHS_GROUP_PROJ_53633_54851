@@ -1,0 +1,87 @@
+<h1>
+	<i class="fa fa-file-text-o"></i>
+	Assignments
+</h1>
+
+<?php
+
+// If there's an ongoing course, creation of assignments is allowed
+
+if ( sql ( 'SELECT 1 FROM `courses` WHERE `courses`.end_date>=NOW()' ) )
+	echo '<div>
+		<div class="button" c-click="route(create_assignment)">
+			<i class="fa fa-plus"></i>
+			<i>Create assignment</i>
+		</div>
+	</div>';
+
+// First we get the list of all courses that have assignments
+
+$COURSES = sql ( '
+SELECT
+	`courses`.id,
+	`courses`.title,
+	COUNT(`assignments`.id) AS assignments
+FROM `courses`
+JOIN `assignments` ON `assignments`.course_id=`courses`.id
+GROUP BY `courses`.id
+ORDER BY
+	`courses`.start_date DESC,
+	`courses`.title ASC' );
+
+foreach ( $COURSES as $COURSE )
+{
+	echo '<h2>
+		'.str_html ( $COURSE['title'] ).'
+		<span class="green">
+			<i class="fa fa-file-text-o"></i>
+			'.$COURSE['assignments'].'
+		</span>
+	</h2>
+	<div class="grid cols_3">
+		<div class="grid_header">Title</div>
+		<div class="grid_header">Deadline</div>
+		<div class="grid_header">Submissions</div>';
+
+	// Next, we get the list of all assignments for each course
+
+	$ASSIGNMENTS = sql ( '
+	SELECT
+		`assignments`.id,
+		`assignments`.title,
+		`assignments`.deadline,
+		COUNT(`assignment_submissions`.student_id) AS `submitted`,
+		COUNT(`assignment_submissions`.grade) AS `graded`
+	FROM `assignments`
+	LEFT JOIN `assignment_submissions` ON `assignment_submissions`.assignment_id=`assignments`.id
+	WHERE `assignments`.course_id='.$COURSE['id'].'
+	GROUP BY `assignments`.id
+	ORDER BY
+		`assignments`.deadline ASC,
+		`assignments`.title ASC' );
+
+	foreach ( $ASSIGNMENTS as $ASSIGNMENT )
+	{
+		echo '<div>
+			<span c-click="route(edit_assignment_'.$ASSIGNMENT['id'].')">
+				<i class="fa fa-external-link"></i>
+				'.str_html ( $ASSIGNMENT['title'] ).'
+			</span>
+		</div>
+		<div>'.date ( 'M jS H:i', strtotime ( $ASSIGNMENT['deadline'] ) ).'</div>';
+
+		// If there are submissions, we display the number of graded and submitted assignments
+
+		if ( $ASSIGNMENT['submitted'] )
+			echo '<div>
+				<span class="'.( $ASSIGNMENT['graded'] === $ASSIGNMENT['submitted'] ? 'green' : 'yellow' ).'" c-click="route(grading_'.$ASSIGNMENT['id'].')">
+					<i class="fa fa-external-link"></i>
+					'.$ASSIGNMENT['graded'].' / '.$ASSIGNMENT['submitted'].'
+				</span>
+			</div>';
+		else
+			echo '<div>0</div>';
+	}
+
+	echo '</div>';
+}

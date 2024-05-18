@@ -41,6 +41,8 @@ elseif ( $_POST['action'] === 'delete_user' )
 	require 'delete_user.php';
 elseif ( $_POST['action'] === 'dropout' )
 	require 'dropout.php';
+elseif ( $_POST['action'] === 'edit_announcement' )
+	require 'edit_announcement.php';
 elseif ( $_POST['action'] === 'edit_assignment' )
 	require 'edit_assignment.php';
 elseif ( $_POST['action'] === 'edit_classroom' )

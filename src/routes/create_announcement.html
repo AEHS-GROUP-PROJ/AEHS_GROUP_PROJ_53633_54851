@@ -7,9 +7,11 @@
 	<i class="fa fa-user"></i>
 	<?=$_USER['full_name']?>
 </div>
+<input type="text" id="<?=dom_id ( 'create_announcement_title' )?>" placeholder="Title" style="margin-top:16px;width:600px;"/>
+<br>
 <textarea id="<?=dom_id ( 'create_announcement_text' )?>"></textarea>
 <br>
-<div class="button" c-click="action(create_announcement,text:value(<?=dom_id ( 'create_announcement_text' )?>))">
+<div class="button" c-click="action(create_announcement,title:value(<?=dom_id ( 'create_announcement_title' )?>),text:value(<?=dom_id ( 'create_announcement_text' )?>))">
 	<i class="fa fa-save"></i>
 	<i>Save</i>
 </div>

@@ -71,6 +71,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/create_lecture.html';
 	elseif ( $_GET['route'] === 'create_user' )
 		require 'routes/create_user.html';
+	elseif ( str_fit ( 'edit_announcement_[1-9]\d{0,15}', $_GET['route'] ) )
+		require 'routes/edit_announcement.html';
 	elseif ( str_fit ( 'edit_assignment_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_assignment.html';
 	elseif ( str_fit ( 'edit_classroom_[1-9]\d{0,15}', $_GET['route'] ) )

@@ -123,6 +123,10 @@ label + label {
 	margin-left: 16px;
 }
 
+p + p {
+	margin-top: 16px;
+}
+
 input[type=checkbox] {
 	height: 0.75em;
 	width: 0.75em;
@@ -157,6 +161,7 @@ textarea {
 	background-color: #FFFFFF;
 	border: 2px solid #666666;
 	border-radius: 4px;
+	font-size: 16px;
 	height: 400px;
 	margin: 16px 0px;
 	padding: 4px;

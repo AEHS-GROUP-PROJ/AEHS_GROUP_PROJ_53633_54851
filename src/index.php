@@ -85,6 +85,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/grading.html';
 	elseif ( $_GET['route'] === 'lecture_schedule' )
 		require 'routes/lecture_schedule.html';
+	elseif ( $_GET['route'] === 'my_assignments' )
+		require 'routes/my_assignments.html';
 	elseif ( $_GET['route'] === 'my_courses' )
 		require 'routes/my_courses.html';
 	elseif ( $_GET['route'] === 'my_lectures' )

@@ -24,6 +24,10 @@ if ( $_USER )
 		<div class="menu_item" c-click="route(my_courses)">
 			<i class="fa fa-fw fa-leanpub"></i>
 			<i>My courses</i>
+		</div>
+		<div class="menu_item" c-click="route(my_assignments)">
+			<i class="fa fa-fw fa-file-text-o"></i>
+			<i>My assignments</i>
 		</div>';
 
 	if ( $_USER['is_admin'] || $_USER['is_lecturer'] )

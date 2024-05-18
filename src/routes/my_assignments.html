@@ -1,0 +1,132 @@
+<h1>
+	<i class="fa fa-file-text-o"></i>
+	My assignments
+</h1>
+
+<?php
+
+// First, we get the list of courses that have assignments for current user
+
+if
+(
+	!$COURSES = sql ( '
+	SELECT
+		`courses`.id,
+		`courses`.title,
+		COUNT(`assignments`.id) AS assignments_total,
+		COUNT(`assignment_submissions`.assignment_id) AS assignments_submitted
+	FROM `courses`
+	JOIN `enrolments` ON
+		`enrolments`.student_id='.$_USER['id'].' AND
+		`enrolments`.course_id=`courses`.id AND
+		`enrolments`.is_accepted<>0
+	JOIN `assignments` ON `assignments`.course_id=`courses`.id
+	LEFT JOIN `assignment_submissions` ON
+		`assignment_submissions`.assignment_id=`assignments`.id AND
+		`assignment_submissions`.student_id='.$_USER['id'].'
+	GROUP BY `courses`.id
+	ORDER BY
+		`courses`.start_date DESC,
+		`courses`.title ASC' )
+)
+{
+	echo '<h2>No assignments yet</h2>';
+
+	return;
+}
+
+foreach ( $COURSES as $COURSE )
+{
+	echo '<h2>
+		'.str_html ( $COURSE['title'] ).'
+		<span class="'.( $COURSE['assignments_submitted'] === $COURSE['assignments_total'] ? 'green' : 'yellow' ).'">
+			<i class="fa fa-file-text-o"></i>
+			'.$COURSE['assignments_submitted'].' / '.$COURSE['assignments_total'].'
+		</span>
+	</h2>
+	<div class="grid cols_4">
+		<div class="grid_header">Title</div>
+		<div class="grid_header">Deadline</div>
+		<div class="grid_header">Submission</div>
+		<div class="grid_header">Grade</div>';
+
+	// Then we get the list of assignments for each course
+
+	$ASSIGNMENTS = sql ( '
+	SELECT
+		`assignments`.id,
+		`assignments`.title,
+		`assignments`.deadline,
+		`assignment_submissions`.submitted_at,
+		`assignment_submissions`.grade
+	FROM `assignments`
+	LEFT JOIN `assignment_submissions` ON
+		`assignment_submissions`.assignment_id=`assignments`.id AND
+		`assignment_submissions`.student_id='.$_USER['id'].'
+	WHERE `assignments`.course_id='.$COURSE['id'].'
+	ORDER BY
+		`assignments`.deadline ASC,
+		`assignments`.title ASC' );
+
+	foreach ( $ASSIGNMENTS as $ASSIGNMENT )
+	{
+		// If deadline has not passed yet, we allow routing to assignment submission page
+
+		if ( $ASSIGNMENT['deadline'] > date ( 'Y-m-d H:i:s' ) )
+			echo '<div>
+				<span c-click="route(submit_assignment_'.$ASSIGNMENT['id'].')">
+					<i class="fa fa-external-link"></i>
+					'.str_html ( $ASSIGNMENT['title'] ).'
+				</span>
+			</div>';
+		else
+			echo '<div>'.str_html ( $ASSIGNMENT['title'] ).'</div>';
+
+		echo '<div>'.date ( 'M jS H:i', strtotime ( $ASSIGNMENT['deadline'] ) ).'</div>';
+
+		// Based on the submission status, we display different 'submitted at' messages
+
+		if ( $ASSIGNMENT['submitted_at'] )
+			echo '<div class="green">
+				<i class="fa fa-check-circle"></i>
+				'.date ( 'M jS H:i', strtotime ( $ASSIGNMENT['submitted_at'] ) ).'
+			</div>';
+		elseif ( $ASSIGNMENT['deadline'] < date ( 'Y-m-d H:i:s' ) )
+			echo '<div class="red">
+				<i class="fa fa-exclamation-circle"></i>
+				Past due
+			</div>';
+		else
+			echo '<div class="yellow">
+				<i class="fa fa-hourglass-2"></i>
+				Pending
+			</div>';
+
+		if ( $ASSIGNMENT['grade'] === '1' )
+			$ASSIGNMENT['grade'] = '1️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '2' )
+			$ASSIGNMENT['grade'] = '2️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '3' )
+			$ASSIGNMENT['grade'] = '3️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '4' )
+			$ASSIGNMENT['grade'] = '4️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '5' )
+			$ASSIGNMENT['grade'] = '5️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '6' )
+			$ASSIGNMENT['grade'] = '6️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '7' )
+			$ASSIGNMENT['grade'] = '7️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '8' )
+			$ASSIGNMENT['grade'] = '8️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '9' )
+			$ASSIGNMENT['grade'] = '9️⃣';
+		elseif ( $ASSIGNMENT['grade'] === '10' )
+			$ASSIGNMENT['grade'] = '🔟';
+		else
+			$ASSIGNMENT['grade'] = '';
+
+		echo '<div>'.$ASSIGNMENT['grade'].'</div>';
+	}
+
+	echo '</div>';
+}

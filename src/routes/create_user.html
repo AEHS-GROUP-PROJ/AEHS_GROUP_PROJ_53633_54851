@@ -2,7 +2,7 @@
 	<i class="fa fa-user-plus"></i>
 	Create user
 </h1>
-<div id="<?=dom_id('create_user_form')?>" class="grid">
+<div id="<?=dom_id ( 'create_user_form' )?>" class="grid">
 	<div>Full name</div>
 	<div>
 		<input type="text" name="full_name" autocomplete="name" maxlength="50"/>
@@ -21,16 +21,16 @@
 	</div>
 	<div>Roles</div>
 	<div>
-		<label for="<?=dom_id('create_user_form_is_student')?>">
-			<input id="<?=dom_id('create_user_form_is_student')?>" type="checkbox" name="is_student" checked/>
+		<label for="<?=dom_id ( 'create_user_form_is_student' )?>">
+			<input id="<?=dom_id ( 'create_user_form_is_student' )?>" type="checkbox" name="is_student" checked/>
 			Student
 		</label>
-		<label for="<?=dom_id('create_user_form_is_lecturer')?>">
-			<input id="<?=dom_id('create_user_form_is_lecturer')?>" type="checkbox" name="is_lecturer"/>
+		<label for="<?=dom_id ( 'create_user_form_is_lecturer' )?>">
+			<input id="<?=dom_id ( 'create_user_form_is_lecturer' )?>" type="checkbox" name="is_lecturer"/>
 			Lecturer
 		</label>
-		<label for="<?=dom_id('create_user_form_is_admin')?>">
-			<input id="<?=dom_id('create_user_form_is_admin')?>" type="checkbox" name="is_admin"/>
+		<label for="<?=dom_id ( 'create_user_form_is_admin' )?>">
+			<input id="<?=dom_id ( 'create_user_form_is_admin' )?>" type="checkbox" name="is_admin"/>
 			Admininstrator
 		</label>
 	</div>
@@ -44,7 +44,7 @@
 	</div>
 	<div></div>
 	<div>
-		<div class="button" c-click="action(create_user,form(<?=dom_id('create_user_form')?>))">
+		<div class="button" c-click="action(create_user,form(<?=dom_id ( 'create_user_form' )?>))">
 			<i class="fa fa-save"></i>
 			<i>Save</i>
 		</div>

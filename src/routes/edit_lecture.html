@@ -24,7 +24,7 @@ if
 	<i class="fa fa-calendar"></i>
 	<?=str_html ( $LECTURE['title'] )?>
 </h1>
-<div id="<?=dom_id('edit_lecture_form')?>" class="grid">
+<div id="<?=dom_id ( 'edit_lecture_form' )?>" class="grid">
 	<div>Title</div>
 	<div>
 		<input type="text" name="title" autocomplete="off" maxlength="50" value="<?=str_html ( $LECTURE['title'] )?>"/>
@@ -92,7 +92,7 @@ if
 	</div>
 	<div></div>
 	<div>
-		<div class="button" c-click="action(edit_lecture,lecture:<?=$LECTURE['id']?>,form(<?=dom_id('edit_lecture_form')?>))">
+		<div class="button" c-click="action(edit_lecture,lecture:<?=$LECTURE['id']?>,form(<?=dom_id ( 'edit_lecture_form' )?>))">
 			<i class="fa fa-save"></i>
 			<i>Save</i>
 		</div>

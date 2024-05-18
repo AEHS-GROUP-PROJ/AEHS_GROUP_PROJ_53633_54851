@@ -1,0 +1,43 @@
+<?php
+
+if
+(
+	!$ASSIGNMENT = sql ( '
+	SELECT
+		`assignments`.id,
+		`assignments`.title,
+		`assignments`.deadline,
+		`courses`.title AS `course_title`,
+		`assignment_submissions`.text
+	FROM `assignments`
+	JOIN `courses` ON `courses`.id=`assignments`.course_id
+	LEFT JOIN `assignment_submissions` ON
+		`assignment_submissions`.assignment_id=`assignments`.id AND
+		`assignment_submissions`.student_id='.$_USER['id'].'
+	WHERE `assignments`.id='.str_sub ( $_GET['route'], 18 ) , 1 )
+)
+{
+	echo ( '<h1>Assignment not found</h1>' );
+
+	return;
+}
+
+?>
+<h1>
+	<i class="fa fa-share-square-o"></i>
+	Assignment submission
+</h1>
+<div class="grid">
+	<div class="bold">Course</div>
+	<div><?=str_html ( $ASSIGNMENT['course_title'] )?></div>
+	<div class="bold">Assignment</div>
+	<div><?=str_html ( $ASSIGNMENT['title'] )?></div>
+	<div class="bold">Deadline</div>
+	<div><?=date ( 'M jS H:i', strtotime ( $ASSIGNMENT['deadline'] ) )?></div>
+</div>
+<textarea id="<?=dom_id ( 'submit_assignment_text' )?>"><?=str_html ( $ASSIGNMENT['text'], 'multiline', 'textarea' )?></textarea>
+<br>
+<div class="button" c-click="action(submit_assignment,text:value(<?=dom_id ( 'submit_assignment_text' )?>))">
+	<i class="fa fa-share-square"></i>
+	<i>Submit assignment</i>
+</div>

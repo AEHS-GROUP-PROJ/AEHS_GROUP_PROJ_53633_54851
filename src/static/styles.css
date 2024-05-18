@@ -152,7 +152,7 @@ textarea {
 	border: 2px solid #666666;
 	border-radius: 4px;
 	height: 400px;
-	margin-top: 16px;
+	margin: 16px 0px;
 	padding: 4px;
 	resize: none;
 	width: 600px;

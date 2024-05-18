@@ -93,6 +93,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/my_lectures.html';
 	elseif ( $_GET['route'] === 'signin' )
 		require 'routes/signin.html';
+	elseif ( str_fit ( 'submit_assignment_[1-9]\d{0,15}', $_GET['route'] ) )
+		require 'routes/submit_assignment.html';
 	elseif ( $_GET['route'] === 'user_management' )
 		require 'routes/user_management.html';
 	else

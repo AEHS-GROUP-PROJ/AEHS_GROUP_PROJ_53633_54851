@@ -22,7 +22,7 @@ if
 	<i class="fa fa-file-text-o"></i>
 	<?=str_html ( $ASSIGNMENT['title'] )?>
 </h1>
-<div id="<?=dom_id('edit_assignment_form')?>" class="grid">
+<div id="<?=dom_id ( 'edit_assignment_form' )?>" class="grid">
 	<div>Course</div>
 	<div>
 		<select name="course">
@@ -52,7 +52,7 @@ if
 	</div>
 	<div></div>
 	<div>
-		<div class="button" c-click="action(edit_assignment,assignment:<?=$ASSIGNMENT['id']?>,form(<?=dom_id('edit_assignment_form')?>))">
+		<div class="button" c-click="action(edit_assignment,assignment:<?=$ASSIGNMENT['id']?>,form(<?=dom_id ( 'edit_assignment_form' )?>))">
 			<i class="fa fa-save"></i>
 			<i>Save</i>
 		</div>

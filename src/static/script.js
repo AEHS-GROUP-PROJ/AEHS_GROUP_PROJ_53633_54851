@@ -32,7 +32,7 @@
 	{
 		if (/^action\([a-z_\d]+(,.*)?\)$/.test(instruction))
 		{
-			const args = instruction.slice(7, -1).split(',')
+			const args = instruction.slice(7, -1).split(',',1000)
 			const data = new FormData()
 
 			data.set('action', args[0])
@@ -69,15 +69,10 @@
 				{
 					const input = document.getElementById(args[i].slice(-9, -1))
 
-					if (!input) continue
-
-					const name = input.getAttribute('name')
-
-					if (name && /^[a-z_\d]*$/.test(name))
-						data.set(name, input.value)
+					data.set(args[i].split(':',1)[0], input.value)
 				}
 				else if (/^[A-Za-z_\d]{1,256}:[A-Za-z_\d]{1,256}$/.test(args[i]))
-					data.set(args[i].split(':')[0], args[i].split(':')[1])
+					data.set(args[i].split(':',1)[0], args[i].split(':',2)[1])
 			}
 
 			post(data)

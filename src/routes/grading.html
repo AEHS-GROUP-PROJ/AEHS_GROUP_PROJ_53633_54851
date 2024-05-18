@@ -8,8 +8,8 @@ if
 	SELECT `assignments`.title
 	FROM `assignments`
 	JOIN `assignment_submissions` ON `assignment_submissions`.assignment_id=`assignments`.id
-	WHERE `assignments`.id='.str_sub ( $_GET['route'], 8 ), 1
-	)
+	WHERE `assignments`.id='.str_sub ( $_GET['route'], 8 ).'
+	GROUP BY `assignments`.id', 1 )
 )
 {
 	echo '<h1>Assignment not found</h1>';

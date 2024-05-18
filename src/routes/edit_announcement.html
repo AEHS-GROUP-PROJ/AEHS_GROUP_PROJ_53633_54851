@@ -35,7 +35,7 @@ if
 <br>
 <textarea id="<?=dom_id ( 'edit_announcement_text' )?>"><?=str_html ( $ANNOUNCEMENT['text'], 'multiline', 'textarea' )?></textarea>
 <br>
-<div class="button" c-click="action(edit_announcement,title:value(<?=dom_id ( 'edit_announcement_title' )?>),text:value(<?=dom_id ( 'edit_announcement_text' )?>))">
+<div class="button" c-click="action(edit_announcement,announcement:<?=$ANNOUNCEMENT['id']?>,title:value(<?=dom_id ( 'edit_announcement_title' )?>),text:value(<?=dom_id ( 'edit_announcement_text' )?>))">
 	<i class="fa fa-save"></i>
 	<i>Save</i>
 </div>

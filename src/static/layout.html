@@ -16,6 +16,11 @@ if ( $_USER )
 {
 	// Menu composition depending on user roles
 
+	echo '<div class="menu_item" c-click="route(announcements)">
+		<i class="fa fa-fw fa-bullhorn"></i>
+		<i>Announcements</i>
+	</div>';
+
 	if ( $_USER['is_student'] )
 		echo '<div class="menu_item" c-click="route(my_lectures)">
 			<i class="fa fa-fw fa-line-chart"></i>

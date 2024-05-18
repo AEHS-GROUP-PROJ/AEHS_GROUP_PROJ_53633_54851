@@ -19,6 +19,8 @@ elseif ( $_POST['action'] === 'apply' )
 	require 'apply.php';
 elseif ( $_POST['action'] === 'check_attendance' )
 	require 'check_attendance.php';
+elseif ( $_POST['action'] === 'create_announcement' )
+	require 'create_announcement.php';
 elseif ( $_POST['action'] === 'create_assignment' )
 	require 'create_assignment.php';
 elseif ( $_POST['action'] === 'create_classroom' )

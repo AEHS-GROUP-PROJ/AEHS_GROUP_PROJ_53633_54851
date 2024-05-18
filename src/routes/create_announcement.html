@@ -1,0 +1,15 @@
+<h1>
+	<i class="fa fa-bullhorn"></i>
+	Make announcement
+</h1>
+<div>
+	Broadcasting as
+	<i class="fa fa-user"></i>
+	<?=$_USER['full_name']?>
+</div>
+<textarea id="<?=dom_id ( 'create_announcement_text' )?>"></textarea>
+<br>
+<div class="button" c-click="action(create_announcement,text:value(<?=dom_id ( 'create_announcement_text' )?>))">
+	<i class="fa fa-save"></i>
+	<i>Save</i>
+</div>

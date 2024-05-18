@@ -1,0 +1,60 @@
+<?php
+
+if
+(
+	!$ASSIGNMENT = sql ( '
+	SELECT
+		`assignments`.id,
+		`assignments`.course_id,
+		`assignments`.title,
+		`assignments`.deadline
+	FROM `assignments`
+	WHERE `assignments`.id='.str_sub ( $_GET['route'], 16 ) , 1 )
+)
+{
+	echo ( '<h1>Assignment not found</h1>' );
+
+	return;
+}
+
+?>
+<h1>
+	<i class="fa fa-file-text-o"></i>
+	<?=str_html ( $ASSIGNMENT['title'] )?>
+</h1>
+<div id="<?=dom_id ( 'edit_assignment_form' )?>" class="grid">
+	<div>Course</div>
+	<div>
+		<select name="course">
+			<?php
+
+			$COURSES = sql ( '
+			SELECT
+				`courses`.id,
+				`courses`.title
+			FROM `courses`
+			WHERE `courses`.end_date>NOW()
+			ORDER BY `courses`.title ASC' );
+
+			foreach ( $COURSES as $COURSE )
+				echo '<option value="'.$COURSE['id'].'"'.( $COURSE['id'] === $ASSIGNMENT['course_id'] ? ' selected' : '' ).'>'.str_html ( $COURSE['title'] ).'</option>';
+
+			?>
+		</select>
+	</div>
+	<div>Title</div>
+	<div>
+		<input type="text" name="title" autocomplete="off" maxlength="50" value="<?=str_html ( $ASSIGNMENT['title'] )?>"/>
+	</div>
+	<div>Deadline</div>
+	<div>
+		<input type="datetime-local" name="deadline" value="<?=date ( 'Y-m-d\TH:i', strtotime ( $ASSIGNMENT['deadline'] ) )?>"/>
+	</div>
+	<div></div>
+	<div>
+		<div class="button" c-click="action(edit_assignment,assignment:<?=$ASSIGNMENT['id']?>,form(<?=dom_id ( 'edit_assignment_form' )?>))">
+			<i class="fa fa-save"></i>
+			<i>Save</i>
+		</div>
+	</div>
+</div>

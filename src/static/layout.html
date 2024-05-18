@@ -24,12 +24,26 @@ if ( $_USER )
 		<div class="menu_item" c-click="route(my_courses)">
 			<i class="fa fa-fw fa-leanpub"></i>
 			<i>My courses</i>
+		</div>
+		<div class="menu_item" c-click="route(my_assignments)">
+			<i class="fa fa-fw fa-file-text-o"></i>
+			<i>My assignments</i>
 		</div>';
 
 	if ( $_USER['is_admin'] || $_USER['is_lecturer'] )
 		echo '<div class="menu_item" c-click="route(lecture_schedule)">
 			<i class="fa fa-fw fa-calendar"></i>
 			<i>Lecture schedule</i>
+		</div>';
+
+	if ( $_USER['is_lecturer'] )
+		echo '<div class="menu_item" c-click="route(attendance)">
+			<i class="fa fa-fw fa-list-ul"></i>
+			<i>Attendance</i>
+		</div>
+		<div class="menu_item" c-click="route(assignments)">
+			<i class="fa fa-fw fa-file-text-o"></i>
+			<i>Assignments</i>
 		</div>';
 
 	if ( $_USER['is_admin'] )

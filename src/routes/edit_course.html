@@ -19,12 +19,11 @@ if
 }
 
 ?>
-
 <h1>
 	<i class="fa fa-graduation-cap"></i>
 	<?=str_html ( $COURSE['title'] )?>
 </h1>
-<div id="<?=dom_id('edit_course_form')?>" class="grid">
+<div id="<?=dom_id ( 'edit_course_form' )?>" class="grid">
 	<div>Title</div>
 	<div>
 		<input type="text" name="title" maxlength="50" value="<?=str_html ( $COURSE['title'] )?>"/>
@@ -43,7 +42,7 @@ if
 	</div>
 	<div></div>
 	<div>
-		<div class="button" c-click="action(edit_course,course:<?=$COURSE['id']?>,form(<?=dom_id('edit_course_form')?>))">
+		<div class="button" c-click="action(edit_course,course:<?=$COURSE['id']?>,form(<?=dom_id ( 'edit_course_form' )?>))">
 			<i class="fa fa-save"></i>
 			<i>Save</i>
 		</div>

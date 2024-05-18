@@ -18,12 +18,11 @@ if
 }
 
 ?>
-
 <h1>
 	<i class="fa fa-building-o"></i>
 	<?=str_html ( $CLASSROOM['title'] )?>
 </h1>
-<div id="<?=dom_id('edit_classroom_form')?>" class="grid">
+<div id="<?=dom_id ( 'edit_classroom_form' )?>" class="grid">
 	<div>Title</div>
 	<div>
 		<input type="text" name="title" autocomplete="off" maxlength="50" value="<?=str_html ( $CLASSROOM['title'] )?>"/>
@@ -38,7 +37,7 @@ if
 	</div>
 	<div></div>
 	<div>
-		<div class="button" c-click="action(edit_classroom,classroom:<?=$CLASSROOM['id']?>,form(<?=dom_id('edit_classroom_form')?>))">
+		<div class="button" c-click="action(edit_classroom,classroom:<?=$CLASSROOM['id']?>,form(<?=dom_id ( 'edit_classroom_form' )?>))">
 			<i class="fa fa-save"></i>
 			<i>Save</i>
 		</div>

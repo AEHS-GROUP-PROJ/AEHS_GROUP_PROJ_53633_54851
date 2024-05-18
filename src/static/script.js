@@ -16,13 +16,23 @@
 				event.stopPropagation()
 			})
 		})
+
+		node.querySelectorAll('[c-change]').forEach(element => {
+			element.addEventListener('change', function(event) {
+				const attr = element.getAttribute('c-change')
+
+				parseInstructions(attr, element)
+
+				event.stopPropagation()
+			})
+		})
 	}
 
 	function execute(instruction, element)
 	{
 		if (/^action\([a-z_\d]+(,.*)?\)$/.test(instruction))
 		{
-			const args = instruction.slice(7, -1).split(',')
+			const args = instruction.slice(7, -1).split(',',1000)
 			const data = new FormData()
 
 			data.set('action', args[0])
@@ -55,8 +65,14 @@
 							data.set(name, inputs[j].checked ? 1 : 0)
 					}
 				}
+				else if (/^[A-Za-z_\d]{1,256}:value\([A-Za-z\d]{8}\)$/.test(args[i]))
+				{
+					const input = document.getElementById(args[i].slice(-9, -1))
+
+					data.set(args[i].split(':',1)[0], input.value)
+				}
 				else if (/^[A-Za-z_\d]{1,256}:[A-Za-z_\d]{1,256}$/.test(args[i]))
-					data.set(args[i].split(':')[0], args[i].split(':')[1])
+					data.set(args[i].split(':',1)[0], args[i].split(':',2)[1])
 			}
 
 			post(data)

@@ -147,6 +147,21 @@ input[type=password] {
 	width: 400px;
 }
 
+textarea {
+	background-color: #FFFFFF;
+	border: 2px solid #666666;
+	border-radius: 4px;
+	height: 400px;
+	margin: 16px 0px;
+	padding: 4px;
+	resize: none;
+	width: 600px;
+}
+
+textarea:disabled {
+	background-color: #FFFFFF;
+}
+
 div.button {
 	border-radius: 8px;
 	color: #FFFFFF;
@@ -169,4 +184,8 @@ div.button {
 
 *.ralign {
 	text-align: right;
+}
+
+*.bold {
+	font-weight: bold;
 }

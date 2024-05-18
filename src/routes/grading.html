@@ -1,0 +1,86 @@
+<?php
+
+// Check if assignment exists and has submissions
+
+if
+(
+	!$ASSIGNMENT = sql ('
+	SELECT `assignments`.title
+	FROM `assignments`
+	JOIN `assignment_submissions` ON `assignment_submissions`.assignment_id=`assignments`.id
+	WHERE `assignments`.id='.str_sub ( $_GET['route'], 8 ), 1
+	)
+)
+{
+	echo '<h1>Assignment not found</h1>';
+
+	return;
+}
+
+?>
+<h1>
+	<i class="fa fa-file-text-o"></i>
+	<?=str_html ( $ASSIGNMENT['title'] )?>
+</h1>
+<div class="grid cols_4">
+		<div class="grid_header">Student Name</div>
+		<div class="grid_header">Email</div>
+		<div class="grid_header">Submitted At</div>
+		<div class="grid_header">Grade</div>
+<?php
+
+// Getting the list of assignment submissions
+
+$SUBMISSIONS = sql ( '
+SELECT
+	`assignment_submissions`.assignment_id AS `id`,
+	`assignment_submissions`.student_id,
+	`assignment_submissions`.submitted_at,
+	`assignment_submissions`.grade,
+	`users`.email,
+	`users`.full_name
+FROM `assignment_submissions`
+JOIN `users` ON `users`.id=`assignment_submissions`.student_id
+WHERE `assignment_submissions`.assignment_id='.str_sub ( $_GET['route'], 8 ).'
+ORDER BY
+	`users`.full_name ASC,
+	`users`.email ASC' );
+
+foreach ( $SUBMISSIONS as $SUBMISSION )
+{
+	if ( $SUBMISSION['grade'] === '1' )
+		$SUBMISSION['grade'] = '1️⃣';
+	elseif ( $SUBMISSION['grade'] === '2' )
+		$SUBMISSION['grade'] = '2️⃣';
+	elseif ( $SUBMISSION['grade'] === '3' )
+		$SUBMISSION['grade'] = '3️⃣';
+	elseif ( $SUBMISSION['grade'] === '4' )
+		$SUBMISSION['grade'] = '4️⃣';
+	elseif ( $SUBMISSION['grade'] === '5' )
+		$SUBMISSION['grade'] = '5️⃣';
+	elseif ( $SUBMISSION['grade'] === '6' )
+		$SUBMISSION['grade'] = '6️⃣';
+	elseif ( $SUBMISSION['grade'] === '7' )
+		$SUBMISSION['grade'] = '7️⃣';
+	elseif ( $SUBMISSION['grade'] === '8' )
+		$SUBMISSION['grade'] = '8️⃣';
+	elseif ( $SUBMISSION['grade'] === '9' )
+		$SUBMISSION['grade'] = '9️⃣';
+	elseif ( $SUBMISSION['grade'] === '10' )
+		$SUBMISSION['grade'] = '🔟';
+	else
+		$SUBMISSION['grade'] = '<i class="fa fa-external-link"></i> Pending';
+
+	echo '
+	<div>
+		<i class="fa fa-user"></i>
+		'.str_html ( $SUBMISSION['full_name'] ).'
+	</div>
+	<div>'.str_html ( $SUBMISSION['email'] ).'</div>
+	<div>'.date ( 'M jS H:i', strtotime ( $SUBMISSION['submitted_at'] ) ).'</div>
+	<div>
+		<span class="red" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
+			'.$SUBMISSION['grade'].'
+		</span>
+	</div>';
+}

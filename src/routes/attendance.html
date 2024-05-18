@@ -1,0 +1,87 @@
+<h1>
+	<i class="fa fa-list-ul"></i>
+	Attendance
+</h1>
+<?php
+
+/*
+
+First we get the list of lectures which are held
+by the current user and have at least one enrolled student.
+
+*/
+
+$LECTURES = sql ( '
+SELECT
+	`lectures`.id,
+	`lectures`.title,
+	`lectures`.starts_at,
+	COUNT(DISTINCT `enrolments`.student_id) AS `students_total`,
+	COUNT(DISTINCT `attendance`.student_id) AS `students_attended`
+FROM `lectures`
+JOIN `courses` ON `courses`.id=`lectures`.course_id
+JOIN `enrolments` ON `enrolments`.course_id=`courses`.id
+LEFT JOIN `attendance` ON `attendance`.lecture_id=`lectures`.id
+WHERE
+	`lectures`.lecturer_id='.$_USER['id'].' AND
+	`lectures`.starts_at<NOW()
+GROUP BY `lectures`.id
+ORDER BY `lectures`.starts_at DESC' );
+
+foreach ( $LECTURES as $LECTURE )
+{
+	echo '<h2>
+		'.str_html ( $LECTURE['title'] ).'
+		('.date ( 'M jS H:i', strtotime ( $LECTURE['starts_at'] ) ).')
+		<span class="'.( $LECTURE['students_attended'] === $LECTURE['students_total'] ? 'green' : 'yellow' ).'">
+			<i class="fa fa-user"></i> '.$LECTURE['students_attended'].' / '.$LECTURE['students_total'].'
+		</span>
+	</h2>
+	<div class="grid cols_3">
+		<div class="grid_header">Full Name</div>
+		<div class="grid_header">Email</div>
+		<div></div>';
+
+	// Next, we get the list of students who are enrolled in the course
+
+	$STUDENTS = sql ( '
+	SELECT
+		`users`.id,
+		`users`.email,
+		`users`.full_name,
+		COUNT(`attendance`.student_id)<>0 AS `attended`
+	FROM `users`
+	JOIN `enrolments` ON `enrolments`.student_id=`users`.id
+	JOIN `courses` ON `courses`.id=`enrolments`.course_id
+	JOIN `lectures` ON `lectures`.course_id=`courses`.id
+	LEFT JOIN `attendance` ON
+		`attendance`.student_id=`users`.id AND
+		`attendance`.lecture_id='.$LECTURE['id'].'
+	WHERE `lectures`.id='.$LECTURE['id'].'
+	GROUP BY `users`.id
+	ORDER BY
+		`users`.full_name ASC,
+		`users`.id ASC' );
+
+	foreach ( $STUDENTS as $STUDENT )
+	{
+		echo '<div>'.str_html ( $STUDENT['full_name'] ).'</div>
+		<div>'.str_html ( $STUDENT['email'] ).'</div>';
+
+		if ( $STUDENT['attended'] )
+			echo '<div class="green" c-click="action(check_attendance,lecture:'.$LECTURE['id'].',student:'.$STUDENT['id'].',attendance:0)">
+			<i class="fa fa-check"></i>
+			Present
+		</div>';
+		else
+			echo '<div class="red" c-click="action(check_attendance,lecture:'.$LECTURE['id'].',student:'.$STUDENT['id'].',attendance:1)">
+			<i class="fa fa-times"></i>
+			Absent
+		</div>';
+	}
+
+	echo '</div>';
+}
+
+?>
+</div>

@@ -51,6 +51,8 @@ elseif ( $_POST['action'] === 'edit_user' )
 	require 'edit_user.php';
 elseif ( $_POST['action'] === 'grade' )
 	require 'grade.php';
+elseif ( $_POST['action'] === 'submit_assignment' )
+	require 'submit_assignment.php';
 elseif ( $_POST['action'] === 'withdraw' )
 	require 'withdraw.php';
 

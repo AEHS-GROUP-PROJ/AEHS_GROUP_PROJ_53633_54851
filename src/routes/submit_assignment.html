@@ -37,7 +37,7 @@ if
 </div>
 <textarea id="<?=dom_id ( 'submit_assignment_text' )?>"><?=str_html ( $ASSIGNMENT['text'], 'multiline', 'textarea' )?></textarea>
 <br>
-<div class="button" c-click="action(submit_assignment,text:value(<?=dom_id ( 'submit_assignment_text' )?>))">
+<div class="button" c-click="action(submit_assignment,assignment:<?=$ASSIGNMENT['id']?>,text:value(<?=dom_id ( 'submit_assignment_text' )?>))">
 	<i class="fa fa-share-square"></i>
 	<i>Submit assignment</i>
 </div>

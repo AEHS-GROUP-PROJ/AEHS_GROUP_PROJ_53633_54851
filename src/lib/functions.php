@@ -1,5 +1,7 @@
 <?php
 
+// This file contains various utility functions
+
 function route ( $route )
 
 # Reroutes user to the specified route

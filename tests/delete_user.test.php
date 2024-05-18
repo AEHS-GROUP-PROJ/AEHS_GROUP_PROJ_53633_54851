@@ -4,14 +4,6 @@ function message($message, $type) {
     throw new Exception($message);
 }
 
-function str_len($str) {
-    return strlen($str);
-}
-
-function str_wash($str) {
-    return trim($str);
-}
-
 function str_fit($pattern, $str) {
     return preg_match("/$pattern/", $str);
 }
@@ -27,7 +19,7 @@ function route($route) {
 // Test case 1: Access denied for non-admin
 $_USER = ['is_admin' => false];
 try {
-    include 'edit_classroom.php';
+    include 'delete_user.php';
     echo 'Test 1 failed';
 } catch (Exception $e) {
     if ($e->getMessage() === 'Access denied') {
@@ -41,7 +33,7 @@ try {
 $_USER = ['is_admin' => true];
 $_POST = [];
 try {
-    include 'edit_classroom.php';
+    include 'delete_user.php';
     echo 'Test 2 failed';
 } catch (Exception $e) {
     if ($e->getMessage() === 'Payload missing') {
@@ -51,16 +43,30 @@ try {
     }
 }
 
-// Test case 3: Classroom successfully edited
-$_USER = ['is_admin' => true];
-$_POST = ['classroom' => '1234567890123456', 'name' => 'New Classroom Name'];
+// Test case 3: User tries to delete themselves
+$_USER = ['is_admin' => true, 'id' => '1234567890123456'];
+$_POST = ['user' => '1234567890123456'];
 try {
-    include 'edit_classroom.php';
+    include 'delete_user.php';
     echo 'Test 3 failed';
 } catch (Exception $e) {
-    if ($e->getMessage() === 'Routed to classrooms') {
+    if ($e->getMessage() === 'You cannot delete yourself') {
         echo 'Test 3 passed';
     } else {
         echo 'Test 3 failed';
+    }
+}
+
+// Test case 4: User successfully deleted
+$_USER = ['is_admin' => true, 'id' => '1234567890123456'];
+$_POST = ['user' => '1234567890123457'];
+try {
+    include 'delete_user.php';
+    echo 'Test 4 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Routed to user_management') {
+        echo 'Test 4 passed';
+    } else {
+        echo 'Test 4 failed';
     }
 }

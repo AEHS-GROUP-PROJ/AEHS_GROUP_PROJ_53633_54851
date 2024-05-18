@@ -1,57 +1,45 @@
 <?php
-use PHPUnit\Framework\TestCase;
+// Mocking functions
+function message($message, $type) {
+    throw new Exception($message);
+}
 
-class CreateClassroomTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        // Mock $_USER and $_POST superglobals
-        global $_USER, $_POST;
-        $_USER = ['is_admin' => true];
-        $_POST = ['title' => 'Test Classroom', 'location' => 'Test Location', 'capacity' => '30'];
+function sql($query, $type) {
+    global $mock_sql_result;
+    return $mock_sql_result;
+}
+
+function sql_escape($str, $length) {
+    return substr($str, 0, $length);
+}
+
+function route($route) {
+    throw new Exception("Redirected to $route");
+}
+
+// Test case 1: Failed to create a classroom
+$mock_sql_result = false;
+$_POST = ['title' => 'Classroom title', 'location' => 'Classroom location', 'capacity' => '100'];
+try {
+    include 'create_classroom.php';
+    echo 'Test 1 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Failed to create a classroom') {
+        echo 'Test 1 passed';
+    } else {
+        echo 'Test 1 failed';
     }
+}
 
-    public function testAccessDeniedForNonAdmins()
-    {
-        // Arrange
-        global $_USER;
-        $_USER['is_admin'] = false;
-
-        // Act and Assert
-        $this->expectOutputString('Access denied');
-        require 'create_classroom.php';
-    }
-
-    public function testPayloadMissing()
-    {
-        // Arrange
-        global $_POST;
-        $_POST = [];
-
-        // Act and Assert
-        $this->expectOutputString('Payload missing');
-        require 'create_classroom.php';
-    }
-
-    public function testTitleValidation()
-    {
-        // Arrange
-        global $_POST;
-        $_POST['title'] = '';
-
-        // Act and Assert
-        $this->expectOutputString('Please provide classroom\'s title');
-        require 'create_classroom.php';
-    }
-
-    public function testLocationValidation()
-    {
-        // Arrange
-        global $_POST;
-        $_POST['location'] = '';
-
-        // Act and Assert
-        $this->expectOutputString('Please provide classroom\'s location');
-        require 'create_classroom.php';
+// Test case 2: Successfully created a classroom
+$mock_sql_result = true;
+try {
+    include 'create_classroom.php';
+    echo 'Test 2 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Classroom successfully created') {
+        echo 'Test 2 passed';
+    } else {
+        echo 'Test 2 failed';
     }
 }

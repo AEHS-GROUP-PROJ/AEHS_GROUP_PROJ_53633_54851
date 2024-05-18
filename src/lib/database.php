@@ -1,5 +1,7 @@
 <?php
 
+// Database connection
+
 if ( !$DB = mysqli_init () )
 	exit ( 'Unable to initialize database connection' );
 

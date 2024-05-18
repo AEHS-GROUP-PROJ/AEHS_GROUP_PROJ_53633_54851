@@ -56,4 +56,4 @@ setcookie ( 'sis_token', $token, time () + 72000 );
 
 message ( 'You are now signed in', 1 );
 
-route ( 'my_courses' );
+route ( 'announcements' );

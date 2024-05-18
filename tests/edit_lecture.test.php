@@ -1,53 +1,113 @@
 <?php
-use PHPUnit\Framework\TestCase;
+// Mocking functions
+function message($message, $type) {
+    throw new Exception($message);
+}
 
-class EditLectureTest extends TestCase
-{
-    public function testAccessDeniedForNonAdminNonLecturer()
-    {
-        // Arrange
-        $_USER = ['is_admin' => false, 'is_lecturer' => false];
+function str_fit($pattern, $str) {
+    return preg_match("/$pattern/", $str);
+}
 
-        // Act
-        // Assuming message function throws an exception
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Access denied');
+function str_len($str) {
+    return strlen($str);
+}
 
-        include 'edit_lecture.php';
+function str_wash($str, $type = null) {
+    return $str;
+}
+
+function sql($query, $type) {
+    if (strpos($query, 'SELECT 1 FROM `courses` WHERE `courses`.id=') !== false) {
+        return true; // Assume course exists for testing
     }
+    return false;
+}
 
-    public function testPayloadMissing()
-    {
-        // Arrange
-        $_USER = ['is_admin' => true];
-        $_POST = [];
-
-        // Act
-        // Assuming message function throws an exception
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Payload missing');
-
-        include 'edit_lecture.php';
+// Test1: Access denied for non-admin and non-lecturer
+$_USER = ['is_admin' => false, 'is_lecturer' => false];
+try {
+    include 'edit_lecture.php';
+    echo 'Test 1 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Access denied') {
+        echo 'Test 1 passed';
+    } else {
+        echo 'Test 1 failed';
     }
+}
 
-    public function testEmptyTitle()
-    {
-        // Arrange
-        $_USER = ['is_admin' => true];
-        $_POST = [
-            'lecture' => '1',
-            'title' => '',
-            'starts_at' => '2022-01-01T15:30',
-            'course' => '1',
-            'lecturer' => '1',
-            'location' => 'Room 101'
-        ];
+// Test case 2: Payload missing
+$_USER = ['is_admin' => true];
+$_POST = [];
+try {
+    include 'edit_lecture.php';
+    echo 'Test 2 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Payload missing') {
+        echo 'Test 2 passed';
+    } else {
+        echo 'Test 2 failed';
+    }
+}
 
-        // Act
-        // Assuming message function throws an exception
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Please provide lecture\'s title');
+// Test case 3: Title missing
+$_USER = ['is_admin' => true];
+$_POST = ['lecture' => '1234567890123456', 'title' => '', 'starts_at' => '2022-01-01T00:00', 'course' => '1234567890123456', 'lecturer' => '1234567890123456', 'location' => 'Test Location'];
+try {
+    include 'edit_lecture.php';
+    echo 'Test 3 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Please provide lecture\'s title') {
+        echo 'Test 3 passed';
+    } else {
+        echo 'Test 3 failed';
+    }
+}
 
-        include 'edit_lecture.php';
+// Test case 4: Invalid start date and time
+$_USER = ['is_admin' => true];
+$_POST = ['lecture' => '1234567890123456', 'title' => 'Test Title', 'starts_at' => 'invalid', 'course' => '1234567890123456', 'lecturer' => '1234567890123456', 'location' => 'Test Location'];
+try {
+    include 'edit_lecture.php';
+    echo 'Test 4 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Please provide lecture\'s start date and time') {
+        echo 'Test 4 passed';
+    } else {
+        echo 'Test 4 failed';
+    }
+}
+
+// Test case 5: Lecture starts earlier than tomorrow
+$_USER = ['is_admin' => true];
+$_POST = ['lecture' => '1234567890123456', 'title' => 'Test Title', 'starts_at' => date('Y-m-d\TH:i', strtotime('-1 day')), 'course' => '1234567890123456', 'lecturer' => '1234567890123456', 'location' => 'Test Location'];
+try {
+    include 'edit_lecture.php';
+    echo 'Test 5 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Updated lecture can\'t start earlier than tomorrow') {
+        echo 'Test 5 passed';
+    } else {
+        echo 'Test 5 failed';
+    }
+}
+
+// Test case 6: Course does not exist
+$_USER = ['is_admin' => true];
+$_POST = ['lecture' => '1234567890123456', 'title' => 'Test Title', 'starts_at' => date('Y-m-d\TH:i', strtotime('+1 day')), 'course' => '1234567890123456', 'lecturer' => '1234567890123456', 'location' => 'Test Location'];
+function sql($query, $type) {
+    if (strpos($query, 'SELECT 1 FROM `courses` WHERE `courses`.id=') !== false) {
+        return false; // Assume course does not exist for testing
+    }
+    return false;
+}
+try {
+    include 'edit_lecture.php';
+    echo 'Test 6 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Please select an existing course') {
+        echo 'Test 6 passed';
+    } else {
+        echo 'Test 6 failed';
     }
 }

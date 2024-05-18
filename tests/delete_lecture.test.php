@@ -1,65 +1,61 @@
 <?php
-use PHPUnit\Framework\TestCase;
+// Mocking functions
+function message($message, $type) {
+    throw new Exception($message);
+}
 
-class DeleteLectureTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        // Mock $_USER and $_POST superglobals
-        global $_USER, $_POST;
-        $_USER = ['is_admin' => true, 'is_lecturer' => true];
-        $_POST = ['lecture' => '1'];
+function str_fit($pattern, $str) {
+    return preg_match("/$pattern/", $str);
+}
+
+function sql($query, $type) {
+    if (strpos($query, 'attendance') !== false) {
+        return false; // Assume no attendance records for testing
     }
+    return true;
+}
 
-    public function testAccessDeniedForNonAdminsAndNonLecturers()
-    {
-        // Arrange
-        global $_USER;
-        $_USER['is_admin'] = false;
-        $_USER['is_lecturer'] = false;
+function route($route) {
+    throw new Exception('Routed to ' . $route);
+}
 
-        // Act and Assert
-        $this->expectOutputString('Access denied');
-        require 'delete_lecture.php';
+// Test case 1: Access denied for non-admin and non-lecturer
+$_USER = ['is_admin' => false, 'is_lecturer' => false];
+try {
+    include 'delete_lecture.php';
+    echo 'Test 1 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Access denied') {
+        echo 'Test 1 passed';
+    } else {
+        echo 'Test 1 failed';
     }
+}
 
-    public function testPayloadMissing()
-    {
-        // Arrange
-        global $_POST;
-        $_POST = [];
-
-        // Act and Assert
-        $this->expectOutputString('Payload missing');
-        require 'delete_lecture.php';
+// Test case 2: Payload missing
+$_USER = ['is_admin' => true, 'is_lecturer' => false];
+$_POST = [];
+try {
+    include 'delete_lecture.php';
+    echo 'Test 2 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Payload missing') {
+        echo 'Test 2 passed';
+    } else {
+        echo 'Test 2 failed';
     }
+}
 
-    public function testLectureAttended()
-    {
-        // Arrange
-        // Mock sql function to return true
-        function sql($query, $return) {
-            return true;
-        }
-
-        // Act and Assert
-        $this->expectOutputString('Can\'t cancel a lecture with attendance records');
-        require 'delete_lecture.php';
-    }
-
-    public function testLectureDeletion()
-    {
-        // Arrange
-        // Mock sql function to return false for the first call (no attendance records)
-        // and true for the second call (successful deletion)
-        function sql($query, $return) {
-            static $call = 0;
-            $call++;
-            return $call == 2;
-        }
-
-        // Act and Assert
-        $this->expectOutputString('Lecture successfully canceled');
-        require 'delete_lecture.php';
+// Test case 3: Lecture successfully deleted
+$_USER = ['is_admin' => true, 'is_lecturer' => false];
+$_POST = ['lecture' => '1234567890123456'];
+try {
+    include 'delete_lecture.php';
+    echo 'Test 3 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Routed to lecture_schedule') {
+        echo 'Test 3 passed';
+    } else {
+        echo 'Test 3 failed';
     }
 }

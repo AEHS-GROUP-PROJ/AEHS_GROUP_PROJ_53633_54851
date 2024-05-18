@@ -1,60 +1,72 @@
 <?php
-use PHPUnit\Framework\TestCase;
+// Mocking functions
+function message($message, $type) {
+    throw new Exception($message);
+}
 
-class CreateLectureTest extends TestCase
-{
-    public function testEmptyTitle()
-    {
-        // Arrange
-        $_POST['title'] = '';
+function str_len($str) {
+    return strlen($str);
+}
 
-        // Act
-        $result = str_len(str_wash($_POST['title']));
+function str_wash($str) {
+    return trim($str);
+}
 
-        // Assert
-        $this->assertEquals(0, $result);
+function str_fit($pattern, $str, $type) {
+    return preg_match("/$pattern/", $str);
+}
+
+// Test case 1: Access denied for non-admin and non-lecturer
+$_USER = ['is_admin' => false, 'is_lecturer' => false];
+try {
+    include 'create_lecture.php';
+    echo 'Test 1 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Access denied') {
+        echo 'Test 1 passed';
+    } else {
+        echo 'Test 1 failed';
     }
+}
 
-    public function testLectureStartsEarlierThanTomorrow()
-    {
-        // Arrange
-        $_POST['starts_at'] = date('Y-m-d\TH:i', strtotime('00:00'));
-
-        // Act
-        $result = $_POST['starts_at'] < date('Y-m-d\TH:i', strtotime('00:00 +1 day'));
-
-        // Assert
-        $this->assertTrue($result);
+// Test case 2: Payload missing
+$_USER = ['is_admin' => true, 'is_lecturer' => false];
+$_POST = [];
+try {
+    include 'create_lecture.php';
+    echo 'Test 2 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Payload missing') {
+        echo 'Test 2 passed';
+    } else {
+        echo 'Test 2 failed';
     }
+}
 
-    public function testInvalidCourse()
-    {
-        // Arrange
-        $_POST['course'] = 'invalid-course';
-
-        // Act
-        $result = str_fit('[1-9]\d{0,15}', $_POST['course']);
-
-        // Assert
-        $this->assertFalse($result);
+// Test case 3: Lecture title missing
+$_USER = ['is_admin' => true, 'is_lecturer' => false];
+$_POST = ['title' => '', 'starts_at' => '2022-01-01T00:00', 'course' => 'Course', 'lecturer' => 'Lecturer', 'location' => 'Location'];
+try {
+    include 'create_lecture.php';
+    echo 'Test 3 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Please provide lecture\'s title') {
+        echo 'Test 3 passed';
+    } else {
+        echo 'Test 3 failed';
     }
+}
 
-    public function testCourseAlreadyHasLectureAtThisTime()
-    {
-        // Arrange
-        $_POST['course'] = '1';
-        $_POST['starts_at'] = date('Y-m-d\TH:i', strtotime('00:00'));
-
-        // Act
-        // Assuming sql function returns true if a lecture already exists at this time
-        $result = sql('
-            SELECT 1 FROM `lectures` WHERE
-                `lectures`.course_id='.$_POST['course'].' AND
-                `lectures`.starts_at>\''.date('Y-m-d\TH:i', strtotime($_POST['starts_at'].' -90 minute')).'\' AND
-                `lectures`.starts_at<\''.date('Y-m-d\TH:i', strtotime($_POST['starts_at'].' +90 minute')).'\'
-            LIMIT 1', 1);
-
-        // Assert
-        $this->assertTrue($result);
+// Test case 4: Invalid start date and time format
+$_USER = ['is_admin' => true, 'is_lecturer' => false];
+$_POST = ['title' => 'Lecture title', 'starts_at' => 'invalid format', 'course' => 'Course', 'lecturer' => 'Lecturer', 'location' => 'Location'];
+try {
+    include 'create_lecture.php';
+    echo 'Test 4 failed';
+} catch (Exception $e) {
+    if ($e->getMessage() === 'Please provide lecture\'s start date and time') {
+        echo 'Test 4 passed';
+    } else {
+        echo 'Test 4 failed';
     }
 }

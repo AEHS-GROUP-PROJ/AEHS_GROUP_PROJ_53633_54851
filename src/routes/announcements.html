@@ -1,0 +1,50 @@
+<h1>
+	<i class="fa fa-bullhorn"></i>
+	Announcements
+</h1>
+<?php
+
+// If user is admin or lecturer, creation of announcements is allowed
+
+if ( $_USER['is_admin'] || $_USER['is_lecturer'] )
+	echo '<div>
+		<div class="button" c-click="route(create_announcement)">
+			<i class="fa fa-plus"></i>
+			<i>Make announcement</i>
+		</div>
+	</div>';
+
+
+// Getting the announcements in chronological order
+
+if
+(
+	!$ANNOUNCEMENTS = sql ('
+	SELECT
+		`announcements`.id,
+		`announcements`.submitted_at,
+		`announcements`.title,
+		`announcements`.text,
+		`users`.full_name
+	FROM `announcements`
+	JOIN `users` ON `users`.id=`announcements`.user_id
+	ORDER BY `announcements`.submitted_at DESC' )
+)
+	return;
+
+foreach ( $ANNOUNCEMENTS as $ANNOUNCEMENT )
+{
+	echo '<h2>
+		'.str_html ( $ANNOUNCEMENT['title'] ).'
+		'.( $_USER['is_admin'] || $_USER['is_lecturer'] ? '<i class="fa fa-pencil" c-click="route(edit_announcement_'.$ANNOUNCEMENT['id'].')"></i>' : '' ).'
+	</h2>
+	<h3>
+		<i class="fa fa-clock-o"></i>
+		'.date ( 'M jS H:i', strtotime ( $ANNOUNCEMENT['submitted_at'] ) ).'
+		<i class="fa fa-user"></i>
+		'.str_html ( $ANNOUNCEMENT['full_name'] ).'
+	</h3>
+	<div>'.str_html ( $ANNOUNCEMENT['text'], 'multiline' ).'</div>';
+}
+
+?>

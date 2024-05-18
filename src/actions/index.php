@@ -19,6 +19,8 @@ elseif ( $_POST['action'] === 'apply' )
 	require 'apply.php';
 elseif ( $_POST['action'] === 'check_attendance' )
 	require 'check_attendance.php';
+elseif ( $_POST['action'] === 'create_announcement' )
+	require 'create_announcement.php';
 elseif ( $_POST['action'] === 'create_assignment' )
 	require 'create_assignment.php';
 elseif ( $_POST['action'] === 'create_classroom' )
@@ -29,6 +31,8 @@ elseif ( $_POST['action'] === 'create_lecture' )
 	require 'create_lecture.php';
 elseif ( $_POST['action'] === 'create_user' )
 	require 'create_user.php';
+elseif ( $_POST['action'] === 'delete_announcement' )
+	require 'delete_announcement.php';
 elseif ( $_POST['action'] === 'delete_classroom' )
 	require 'delete_classroom.php';
 elseif ( $_POST['action'] === 'delete_course' )
@@ -39,6 +43,8 @@ elseif ( $_POST['action'] === 'delete_user' )
 	require 'delete_user.php';
 elseif ( $_POST['action'] === 'dropout' )
 	require 'dropout.php';
+elseif ( $_POST['action'] === 'edit_announcement' )
+	require 'edit_announcement.php';
 elseif ( $_POST['action'] === 'edit_assignment' )
 	require 'edit_assignment.php';
 elseif ( $_POST['action'] === 'edit_classroom' )
@@ -51,6 +57,8 @@ elseif ( $_POST['action'] === 'edit_user' )
 	require 'edit_user.php';
 elseif ( $_POST['action'] === 'grade' )
 	require 'grade.php';
+elseif ( $_POST['action'] === 'submit_assignment' )
+	require 'submit_assignment.php';
 elseif ( $_POST['action'] === 'withdraw' )
 	require 'withdraw.php';
 

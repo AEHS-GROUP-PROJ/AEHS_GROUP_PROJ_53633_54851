@@ -43,13 +43,14 @@ Last revision: 2024-04-14
 | ``/src/lib`` | Misc. helping functions |
 | ``/src/routes`` | Routes for app's UI layouts |
 | ``/src/static`` | Statically served content |
+| ``/src/index.php`` | Application's main request handler |
 | ``/tests`` | Unit tests |
 
 ### Currently implemented functionality
 
 - Password-based authorization
-- User role management (student, lecturer, administrator)
-- Basic user management
+- User management
+- User role separation(student, lecturer, administrator)
 - Course management
 - Ability to apply to courses and withdraw
 - Enrolment management (administration acceptance, dropping out)
@@ -57,10 +58,13 @@ Last revision: 2024-04-14
 - Managing classrooms
 - Scheduling lectures (including schedule integrity control)
 - Tracking lecture attendance
+- Announcement feed
+- Assignment management
+- Assignment grading
 
 ### Setup instructions
 
-1. Make sure your environment has PHP and MysqL set up and running.
+1. Make sure your environment has PHP and MySQL set up and running.
 2. Import ``/db/schema.sql`` to set up the database schema.
 3. Update ``/src/lib/database.php`` file with your system's database credentials.
 3. Serve the ``/src`` directory with a web server of your choice (e.g. Apache).

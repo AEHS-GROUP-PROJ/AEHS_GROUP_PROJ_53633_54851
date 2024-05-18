@@ -31,6 +31,12 @@ h2 {
 	margin: 32px 0px 16px 0px;
 }
 
+h3 {
+	color:#333333;
+	font-size: 16px;
+	margin: -16px 0px 16px 0px;
+}
+
 h2:first-child {
 	margin-top: 0px;
 }
@@ -68,6 +74,7 @@ i:not(.fa-fw) + i {
 	display: inline-block;
 	top: 0;
 	left: 400px;
+	max-width: 1000px;
 	padding: 24px;
 }
 
@@ -117,6 +124,10 @@ label + label {
 	margin-left: 16px;
 }
 
+p + p {
+	margin-top: 16px;
+}
+
 input[type=checkbox] {
 	height: 0.75em;
 	width: 0.75em;
@@ -151,6 +162,7 @@ textarea {
 	background-color: #FFFFFF;
 	border: 2px solid #666666;
 	border-radius: 4px;
+	font-size: 16px;
 	height: 400px;
 	margin: 16px 0px;
 	padding: 4px;
@@ -168,6 +180,10 @@ div.button {
 	display: inline-block;
 	background-color: #333333;
 	padding: 8px 16px;
+}
+
+div.button.red {
+	background-color: #FF0000;
 }
 
 .green { color:#009900; }

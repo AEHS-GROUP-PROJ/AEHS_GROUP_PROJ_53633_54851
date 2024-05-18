@@ -47,7 +47,9 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 
 	// Routing to the requested page
 
-	if ( $_GET['route'] === 'apply' )
+	if ( $_GET['route'] === 'announcements' )
+		require 'routes/announcements.html';
+	elseif ( $_GET['route'] === 'apply' )
 		require 'routes/apply.html';
 	elseif ( $_GET['route'] === 'assignments' )
 		require 'routes/assignments.html';
@@ -57,6 +59,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/classrooms.html';
 	elseif ( $_GET['route'] === 'course_management' )
 		require 'routes/course_management.html';
+	elseif ( $_GET['route'] === 'create_announcement' )
+		require 'routes/create_announcement.html';
 	elseif ( $_GET['route'] === 'create_assignment' )
 		require 'routes/create_assignment.html';
 	elseif ( $_GET['route'] === 'create_classroom' )
@@ -67,6 +71,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/create_lecture.html';
 	elseif ( $_GET['route'] === 'create_user' )
 		require 'routes/create_user.html';
+	elseif ( str_fit ( 'edit_announcement_[1-9]\d{0,15}', $_GET['route'] ) )
+		require 'routes/edit_announcement.html';
 	elseif ( str_fit ( 'edit_assignment_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/edit_assignment.html';
 	elseif ( str_fit ( 'edit_classroom_[1-9]\d{0,15}', $_GET['route'] ) )
@@ -98,7 +104,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 	elseif ( $_GET['route'] === 'user_management' )
 		require 'routes/user_management.html';
 	else
-		require 'routes/home.html';
+		require 'routes/announcements.html';
 
 	$CONTENT = ob_get_clean();
 }

@@ -79,6 +79,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' )
 		require 'routes/edit_user.html';
 	elseif ( $_GET['route'] === 'enrolments' )
 		require 'routes/enrolments.html';
+	elseif ( str_fit ( 'grade_[1-9]\d{0,15}_[1-9]\d{0,15}', $_GET['route'] ) )
+		require 'routes/grade.html';
 	elseif ( str_fit ( 'grading_[1-9]\d{0,15}', $_GET['route'] ) )
 		require 'routes/grading.html';
 	elseif ( $_GET['route'] === 'lecture_schedule' )

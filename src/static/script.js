@@ -16,6 +16,16 @@
 				event.stopPropagation()
 			})
 		})
+
+		node.querySelectorAll('[c-change]').forEach(element => {
+			element.addEventListener('change', function(event) {
+				const attr = element.getAttribute('c-change')
+
+				parseInstructions(attr, element)
+
+				event.stopPropagation()
+			})
+		})
 	}
 
 	function execute(instruction, element)
@@ -54,6 +64,17 @@
 						if (name && /^[a-z_\d]*$/.test(name))
 							data.set(name, inputs[j].checked ? 1 : 0)
 					}
+				}
+				else if (/^[A-Za-z_\d]{1,256}:value\([A-Za-z\d]{8}\)$/.test(args[i]))
+				{
+					const input = document.getElementById(args[i].slice(-9, -1))
+
+					if (!input) continue
+
+					const name = input.getAttribute('name')
+
+					if (name && /^[a-z_\d]*$/.test(name))
+						data.set(name, input.value)
 				}
 				else if (/^[A-Za-z_\d]{1,256}:[A-Za-z_\d]{1,256}$/.test(args[i]))
 					data.set(args[i].split(':')[0], args[i].split(':')[1])

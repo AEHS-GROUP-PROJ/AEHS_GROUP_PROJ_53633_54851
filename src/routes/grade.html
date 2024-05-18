@@ -1,54 +1,60 @@
-<h1>
-	<i class="fa fa-pencil-square-o"></i>
-	Grading
-</h1>
-<div class="grid cols_4">
-		<div class="grid_header">Student Name</div>
-		<div class="grid_header">Email</div>
-		<div class="grid_header">Submitted At</div>
-		<div class="grid_header">Grade</div>
 <?php
 
-// Getting the list of assignment submissions
-
-$SUBMISSIONS = sql ( '
-SELECT
-	`assignment_submissions`.assignment_id AS `id`,
-	`assignment_submissions`.student_id,
-	`assignment_submissions`.submitted_at,
-	`assignment_submissions`.grade,
-	`users`.email,
-	`users`.full_name
-FROM `assignment_submissions`
-JOIN `users` ON `users`.id=`assignment_submissions`.student_id
-WHERE `assignment_submissions`.assignment_id='.str_sub ( $_GET['route'], 8 ).'
-ORDER BY
-	`users`.full_name ASC,
-	`users`.email ASC' );
-
-foreach ( $SUBMISSIONS as $SUBMISSION )
+if
+(
+	!$SUBMISSION = sql ( '
+	SELECT
+		`assignment_submissions`.assignment_id,
+		`assignment_submissions`.student_id,
+		`assignment_submissions`.submitted_at,
+		`assignment_submissions`.text,
+		`assignment_submissions`.grade,
+		`assignments`.title AS `assignment_title`,
+		`courses`.title AS `course_title`,
+		`users`.full_name,
+		`users`.email
+	FROM `assignment_submissions`
+	JOIN `assignments` ON `assignments`.id=`assignment_submissions`.assignment_id
+	JOIN `courses` ON `courses`.id=`assignments`.course_id
+	JOIN `users` ON `users`.id=`assignment_submissions`.student_id
+	WHERE
+		`assignment_submissions`.assignment_id='.explode ( '_', $_GET['route'] )[1].' AND
+		`assignment_submissions`.student_id='.explode ( '_', $_GET['route'] )[2] , 1 )
+)
 {
+	echo ( '<h1>Submission not found</h1>' );
 
-	echo '
-	<div>
-		<i class="fa fa-user"></i>
-		'.str_html ( $SUBMISSION['full_name'] ).'
-	</div>
-	<div>'.str_html ( $SUBMISSION['email'] ).'</div>
-	<div>'.date ( 'M jS H:i', strtotime ( $SUBMISSION['submitted_at'] ) ).'</div>';
-
-	if ( $SUBMISSION['grade'] )
-		echo '<div>
-			<span class="'.( (int) $SUBMISSION['grade'] < 5 ? 'yellow' : 'green' ).' bold" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
-				<i class="fa fa-external-link"></i>
-				'.$SUBMISSION['grade'].'
-			</span>
-		</div>';
-	else
-		echo '<div>
-			<span class="red" c-click="route(grade_'.$SUBMISSION['id'].'_'.$SUBMISSION['student_id'].')">
-				<i class="fa fa-external-link"></i>
-				Pending
-			</span>
-		</div>';
+	return;
 }
+?>
+<h1>
+	<i class="fa fa-file-text-o"></i>
+	Assignment grading
+</h1>
+<div class="grid">
+	<div class="bold">Course</div>
+	<div><?=str_html ( $SUBMISSION['course_title'] )?></div>
+	<div class="bold">Assignment</div>
+	<div><?=str_html ( $SUBMISSION['assignment_title'] )?></div>
+	<div class="bold">Student</div>
+	<div><?=str_html ( $SUBMISSION['full_name'] )?></div>
+	<div class="bold">Email</div>
+	<div><?=str_html ( $SUBMISSION['email'] )?></div>
+	<div class="bold">Submitted</div>
+	<div><?=date ( 'M jS H:i', strtotime ( $SUBMISSION['submitted_at'] ) )?></div>
+	<div class="bold">Grade</div>
+	<div>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:0)">🤔</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:1)">1️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:2)">2️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:3)">3️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:4)">4️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:5)">5️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:6)">6️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:7)">7️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:8)">8️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:9)">9️⃣</span>
+		<span c-click="action(grade,assignment:<?=str_html ( $SUBMISSION['assignment_id'] )?>,student:<?=str_html ( $SUBMISSION['student_id'] )?>,grade:10)">🔟</span>
+	</div>
+</div>
+<textarea disabled><?=str_html ( $SUBMISSION['text'], 'multiline', 'textarea' )?></textarea>

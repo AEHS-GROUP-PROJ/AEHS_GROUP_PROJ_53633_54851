@@ -181,6 +181,10 @@ div.button {
 	padding: 8px 16px;
 }
 
+div.button.red {
+	background-color: #FF0000;
+}
+
 .green { color:#009900; }
 .red { color:#FF0000; }
 .yellow { color:#FF6600; }

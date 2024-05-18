@@ -31,6 +31,8 @@ elseif ( $_POST['action'] === 'create_lecture' )
 	require 'create_lecture.php';
 elseif ( $_POST['action'] === 'create_user' )
 	require 'create_user.php';
+elseif ( $_POST['action'] === 'delete_announcement' )
+	require 'delete_announcement.php';
 elseif ( $_POST['action'] === 'delete_classroom' )
 	require 'delete_classroom.php';
 elseif ( $_POST['action'] === 'delete_course' )

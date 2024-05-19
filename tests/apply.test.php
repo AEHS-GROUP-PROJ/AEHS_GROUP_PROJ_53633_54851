@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -14,7 +16,9 @@ function route($route) {
 }
 
 // Test case 1: Course not available
+
 $mock_sql_result = false;
+
 try {
     include 'apply.php';
     echo 'Test 1 failed';
@@ -27,9 +31,11 @@ try {
 }
 
 // Test case 2: Failed to create an enrolment
+
 $mock_sql_result = true;
 $_USER = ['id' => '1234567890'];
 $_POST = ['course' => '1234567890'];
+
 try {
     include 'apply.php';
     echo 'Test 2 failed';
@@ -42,7 +48,9 @@ try {
 }
 
 // Test case 3: Successfully applied for the course
+
 $mock_sql_result = true;
+
 try {
     include 'apply.php';
     echo 'Test 3 failed';

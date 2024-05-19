@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -13,7 +15,9 @@ function str_wash($str) {
 }
 
 // Test case 1: Payload missing
+
 $_POST = [];
+
 try {
     include 'create_user.php';
     echo 'Test 1 failed';
@@ -26,7 +30,9 @@ try {
 }
 
 // Test case 2: Invalid email address
+
 $_POST = ['email' => 'invalid email', 'full_name' => 'Full Name', 'address' => 'Address', 'phone' => '1234567890', 'is_student' => true, 'is_lecturer' => false, 'is_admin' => false, 'password' => 'password', 'password_confirm' => 'password'];
+
 try {
     include 'create_user.php';
     echo 'Test 2 failed';
@@ -39,7 +45,9 @@ try {
 }
 
 // Test case 3: Full name missing
+
 $_POST = ['email' => 'email@example.com', 'full_name' => '', 'address' => 'Address', 'phone' => '1234567890', 'is_student' => true, 'is_lecturer' => false, 'is_admin' => false, 'password' => 'password', 'password_confirm' => 'password'];
+
 try {
     include 'create_user.php';
     echo 'Test 3 failed';
@@ -52,7 +60,9 @@ try {
 }
 
 // Test case 4: Password too short
+
 $_POST = ['email' => 'email@example.com', 'full_name' => 'Full Name', 'address' => 'Address', 'phone' => '1234567890', 'is_student' => true, 'is_lecturer' => false, 'is_admin' => false, 'password' => 'short', 'password_confirm' => 'short'];
+
 try {
     include 'create_user.php';
     echo 'Test 4 failed';

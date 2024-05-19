@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -25,7 +27,9 @@ function route($route) {
 }
 
 // Test case 1: Access denied for non-admin
+
 $_USER = ['is_admin' => false];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 1 failed';
@@ -38,8 +42,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 2 failed';
@@ -52,8 +58,10 @@ try {
 }
 
 // Test case 3: Classroom successfully edited
+
 $_USER = ['is_admin' => true];
 $_POST = ['classroom' => '1234567890123456', 'name' => 'New Classroom Name'];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 3 failed';

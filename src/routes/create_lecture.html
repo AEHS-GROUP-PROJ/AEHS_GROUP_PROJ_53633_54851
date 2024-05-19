@@ -37,6 +37,8 @@
 		<select name="lecturer">
 			<?php
 
+			// Getting the list of lecturers
+
 			$LECTURERS = sql ( '
 			SELECT
 				`users`.id,
@@ -55,6 +57,8 @@
 	<div>
 		<select name="location">
 			<?php
+
+			// Getting the list of classrooms
 
 			$LOCATIONS = sql ( '
 			SELECT

@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -18,7 +20,9 @@ function route($route) {
 }
 
 // Test1: Access denied
+
 $_USER = ['is_student' => false];
+
 try {
     include 'withdraw.php';
     echo 'Test 1 failed';
@@ -31,8 +35,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_student' => true];
 $_POST = [];
+
 try {
     include 'withdraw.php';
     echo 'Test 2 failed';
@@ -45,9 +51,11 @@ try {
 }
 
 // Test case 3: Withdrawal unsuccessful
+
 $_USER = ['is_student' => true, 'id' => '1234567890123456'];
 $_POST = ['course' => '1234567890123456'];
 $mock_sql_result = false;
+
 try {
     include 'withdraw.php';
     echo 'Test 3 failed';
@@ -60,9 +68,11 @@ try {
 }
 
 // Test case 4: Withdrawal successful
+
 $_USER = ['is_student' => true, 'id' => '1234567890123456'];
 $_POST = ['course' => '1234567890123456'];
 $mock_sql_result = true;
+
 try {
     include 'withdraw.php';
     echo 'Test 4 failed';

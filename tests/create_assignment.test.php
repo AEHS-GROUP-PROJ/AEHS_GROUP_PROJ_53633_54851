@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -9,7 +11,9 @@ function str_fit($pattern, $str, $type) {
 }
 
 // Test case 1: Invalid deadline format
+
 $_POST['deadline'] = 'invalid format';
+
 try {
     include 'create_assignment.php';
     echo 'Test 1 failed';
@@ -22,7 +26,9 @@ try {
 }
 
 // Test case 2: Deadline earlier than tomorrow
+
 $_POST['deadline'] = date('Y-m-d\TH:i', strtotime('00:00'));
+
 try {
     include 'create_assignment.php';
     echo 'Test 2 failed';
@@ -35,7 +41,9 @@ try {
 }
 
 // Test case 3: Valid deadline
+
 $_POST['deadline'] = date('Y-m-d\TH:i', strtotime('00:00 +2 day'));
+
 try {
     include 'create_assignment.php';
     echo 'Test 3 passed';

@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -22,7 +24,9 @@ function route($route) {
 }
 
 // Test1: Payload missing
+
 $_POST = [];
+
 try {
     include 'signin.php';
     echo 'Test 1 failed';
@@ -35,8 +39,10 @@ try {
 }
 
 // Test case 2: Password is invalid
+
 $_POST = ['email' => 'test@example.com', 'password' => 'password'];
 $mock_sql_result = false;
+
 try {
     include 'signin.php';
     echo 'Test 2 failed';
@@ -49,8 +55,10 @@ try {
 }
 
 // Test case 3: Failed to create a session
+
 $_POST = ['email' => 'test@example.com', 'password' => 'password'];
 $mock_sql_result = ['id' => '1234567890123456'];
+
 try {
     include 'signin.php';
     echo 'Test 3 failed';
@@ -63,10 +71,12 @@ try {
 }
 
 // Test case 4: Sign in successful
+
 $_POST = ['email' => 'test@example.com', 'password' => 'password'];
 $mock_sql_result = ['id' => '1234567890123456'];
 $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 $_SERVER['HTTP_USER_AGENT'] = 'Test User Agent';
+
 try {
     include 'signin.php';
     echo 'Test 4 failed';

@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -29,8 +31,10 @@ function route($route) {
     throw new Exception("Routed to $route");
 }
 
-// Test1: Payload missing
+// Test case 1: Payload missing
+
 $_POST = [];
+
 try {
     include 'submit_assignment.php';
     echo 'Test 1 failed';
@@ -43,8 +47,10 @@ try {
 }
 
 // Test case 2: Assignment not found
+
 $_POST = ['assignment' => '1234567890123456', 'text' => 'Test text'];
 $mock_sql_result = false;
+
 try {
     include 'submit_assignment.php';
     echo 'Test 2 failed';
@@ -57,8 +63,10 @@ try {
 }
 
 // Test case 3: The deadline has passed
+
 $_POST = ['assignment' => '1234567890123456', 'text' => 'Test text'];
 $mock_sql_result = ['deadline' => '2000-01-01 00:00:00'];
+
 try {
     include 'submit_assignment.php';
     echo 'Test 3 failed';
@@ -71,8 +79,10 @@ try {
 }
 
 // Test case 4: No content provided
+
 $_POST = ['assignment' => '1234567890123456', 'text' => ''];
 $mock_sql_result = ['deadline' => '2099-12-31 23:59:59'];
+
 try {
     include 'submit_assignment.php';
     echo 'Test 4 failed';

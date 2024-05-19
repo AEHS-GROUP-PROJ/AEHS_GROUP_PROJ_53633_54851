@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -22,7 +24,9 @@ function route($route) {
 }
 
 // Test1: No cookie set
+
 $_COOKIE = [];
+
 try {
     include 'signout.php';
     echo 'Test 1 failed';
@@ -35,7 +39,9 @@ try {
 }
 
 // Test case 2: Cookie set but not matching pattern
+
 $_COOKIE = ['sis_token' => 'invalid_token'];
+
 try {
     include 'signout.php';
     echo 'Test 2 failed';
@@ -48,7 +54,9 @@ try {
 }
 
 // Test case 3: Cookie set and matching pattern
+
 $_COOKIE = ['sis_token' => 'abcdefghijklmnop'];
+
 try {
     include 'signout.php';
     echo 'Test 3 failed';

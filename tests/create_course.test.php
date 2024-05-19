@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -17,7 +19,9 @@ function str_fit($pattern, $str) {
 }
 
 // Test case 1: Access denied for non-admin
+
 $_USER = ['is_admin' => false];
+
 try {
     include 'create_course.php';
     echo 'Test 1 failed';
@@ -30,8 +34,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'create_course.php';
     echo 'Test 2 failed';
@@ -44,8 +50,10 @@ try {
 }
 
 // Test case 3: Course title missing
+
 $_USER = ['is_admin' => true];
 $_POST = ['title' => '', 'start_date' => '2022-01-01', 'end_date' => '2022-12-31', 'places' => '100'];
+
 try {
     include 'create_course.php';
     echo 'Test 3 failed';
@@ -58,8 +66,10 @@ try {
 }
 
 // Test case 4: Invalid start date format
+
 $_USER = ['is_admin' => true];
 $_POST = ['title' => 'Course title', 'start_date' => 'invalid format', 'end_date' => '2022-12-31', 'places' => '100'];
+
 try {
     include 'create_course.php';
     echo 'Test 4 failed';
@@ -72,8 +82,10 @@ try {
 }
 
 // Test case 5: Start date earlier than tomorrow
+
 $_USER = ['is_admin' => true];
 $_POST = ['title' => 'Course title', 'start_date' => date('Y-m-d'), 'end_date' => '2022-12-31', 'places' => '100'];
+
 try {
     include 'create_course.php';
     echo 'Test 5 failed';

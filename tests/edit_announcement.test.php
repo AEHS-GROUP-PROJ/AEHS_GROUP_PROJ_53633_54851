@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -32,7 +34,9 @@ function route($route) {
 }
 
 // Test case 1: Access denied for non-admin and non-lecturer
+
 $_USER = ['is_admin' => false, 'is_lecturer' => false];
+
 try {
     include 'edit_announcement.php';
     echo 'Test 1 failed';
@@ -45,8 +49,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'edit_announcement.php';
     echo 'Test 2 failed';
@@ -59,6 +65,7 @@ try {
 }
 
 // Test case 3: Announcement does not exist
+
 $_USER = ['is_admin' => true];
 $_POST = ['announcement' => '1234567890123456', 'title' => 'Test Title', 'text' => 'Test Text'];
 function sql($query, $type) {
@@ -67,6 +74,7 @@ function sql($query, $type) {
     }
     return true;
 }
+
 try {
     include 'edit_announcement.php';
     echo 'Test 3 failed';
@@ -79,6 +87,7 @@ try {
 }
 
 // Test case 4: Announcement successfully updated
+
 $_USER = ['is_admin' => true, 'id' => '1234567890123456'];
 $_POST = ['announcement' => '1234567890123456', 'title' => 'Test Title', 'text' => 'Test Text'];
 function sql($query, $type) {
@@ -87,6 +96,7 @@ function sql($query, $type) {
     }
     return true;
 }
+
 try {
     include 'edit_announcement.php';
     echo 'Test 4 failed';

@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -28,7 +30,9 @@ function sql_escape($str, $length) {
 }
 
 // Test case 1: Access denied for non-admin
+
 $_USER = ['is_admin' => false];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 1 failed';
@@ -41,8 +45,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 2 failed';
@@ -55,8 +61,10 @@ try {
 }
 
 // Test case 3: Title missing
+
 $_USER = ['is_admin' => true];
 $_POST = ['classroom' => '1234567890123456', 'title' => '', 'location' => 'Test Location', 'capacity' => '30'];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 3 failed';
@@ -69,8 +77,10 @@ try {
 }
 
 // Test case 4: Location missing
+
 $_USER = ['is_admin' => true];
 $_POST = ['classroom' => '1234567890123456', 'title' => 'Test Title', 'location' => '', 'capacity' => '30'];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 4 failed';
@@ -83,8 +93,10 @@ try {
 }
 
 // Test case 5: Invalid capacity
+
 $_USER = ['is_admin' => true];
 $_POST = ['classroom' => '1234567890123456', 'title' => 'Test Title', 'location' => 'Test Location', 'capacity' => 'invalid'];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 5 failed';
@@ -97,8 +109,10 @@ try {
 }
 
 // Test case 6: Zero capacity
+
 $_USER = ['is_admin' => true];
 $_POST = ['classroom' => '1234567890123456', 'title' => 'Test Title', 'location' => 'Test Location', 'capacity' => '0'];
+
 try {
     include 'edit_classroom.php';
     echo 'Test 6 failed';
@@ -111,6 +125,7 @@ try {
 }
 
 // Test case 7: Classroom with such title already exists
+
 $_USER = ['is_admin' => true];
 $_POST = ['classroom' => '1234567890123456', 'title' => 'Test Title', 'location' => 'Test Location', 'capacity' => '30'];
 function sql($query, $type) {
@@ -119,6 +134,7 @@ function sql($query, $type) {
     }
     return true;
 }
+
 try {
     include 'edit_classroom.php';
     echo 'Test 7 failed';
@@ -131,6 +147,7 @@ try {
 }
 
 // Test case 8: Classroom successfully updated
+
 $_USER = ['is_admin' => true];
 $_POST = ['classroom' => '1234567890123456', 'title' => 'Test Title', 'location' => 'Test Location', 'capacity' => '30'];
 function sql($query, $type) {
@@ -139,6 +156,7 @@ function sql($query, $type) {
     }
     return true;
 }
+
 try {
     include 'edit_classroom.php';
     echo 'Test 8 passed'; // No exception means the test passed

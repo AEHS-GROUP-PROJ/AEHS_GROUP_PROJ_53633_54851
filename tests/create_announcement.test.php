@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -18,7 +20,9 @@ function str_wash($str, $type = null) {
 }
 
 // Test case 1: Access denied for non-admin and non-lecturer
+
 $_USER = ['is_admin' => false, 'is_lecturer' => false];
+
 try {
     include 'create_announcement.php';
     echo 'Test 1 failed';
@@ -31,8 +35,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'create_announcement.php';
     echo 'Test 2 failed';
@@ -45,8 +51,10 @@ try {
 }
 
 // Test case 3: Title missing
+
 $_USER = ['is_admin' => true];
 $_POST = ['title' => '', 'text' => 'Announcement text'];
+
 try {
     include 'create_announcement.php';
     echo 'Test 3 failed';
@@ -59,8 +67,10 @@ try {
 }
 
 // Test case 4: Announcement text missing
+
 $_USER = ['is_admin' => true];
 $_POST = ['title' => 'Announcement title', 'text' => ''];
+
 try {
     include 'create_announcement.php';
     echo 'Test 4 failed';
@@ -73,9 +83,11 @@ try {
 }
 
 // Test case 5: Creating an announcement record
+
 $_USER = ['is_admin' => true];
 $_POST = ['title' => 'Announcement title', 'text' => 'Announcement text'];
 $mock_sql_result = true;
+
 try {
     include 'create_announcement.php';
     echo 'Test 5 passed';

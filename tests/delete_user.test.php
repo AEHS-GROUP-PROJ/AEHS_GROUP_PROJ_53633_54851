@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -17,7 +19,9 @@ function route($route) {
 }
 
 // Test case 1: Access denied for non-admin
+
 $_USER = ['is_admin' => false];
+
 try {
     include 'delete_user.php';
     echo 'Test 1 failed';
@@ -30,8 +34,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'delete_user.php';
     echo 'Test 2 failed';
@@ -44,8 +50,10 @@ try {
 }
 
 // Test case 3: User tries to delete themselves
+
 $_USER = ['is_admin' => true, 'id' => '1234567890123456'];
 $_POST = ['user' => '1234567890123456'];
+
 try {
     include 'delete_user.php';
     echo 'Test 3 failed';
@@ -58,8 +66,10 @@ try {
 }
 
 // Test case 4: User successfully deleted
+
 $_USER = ['is_admin' => true, 'id' => '1234567890123456'];
 $_POST = ['user' => '1234567890123457'];
+
 try {
     include 'delete_user.php';
     echo 'Test 4 failed';

@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -28,7 +30,9 @@ function route($route) {
 }
 
 // Test case 1: Access denied for non-admin
+
 $_USER = ['is_admin' => false];
+
 try {
     include 'edit_course.php';
     echo 'Test 1 failed';
@@ -41,8 +45,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'edit_course.php';
     echo 'Test 2 failed';
@@ -55,8 +61,10 @@ try {
 }
 
 // Test case 3: Title missing
+
 $_USER = ['is_admin' => true];
 $_POST = ['course' => '1234567890123456', 'title' => '', 'start_date' => '2022-01-01', 'end_date' => '2022-12-31', 'places' => '30'];
+
 try {
     include 'edit_course.php';
     echo 'Test 3 failed';
@@ -69,8 +77,10 @@ try {
 }
 
 // Test case 4: Invalid start date
+
 $_USER = ['is_admin' => true];
 $_POST = ['course' => '1234567890123456', 'title' => 'Test Title', 'start_date' => 'invalid', 'end_date' => '2022-12-31', 'places' => '30'];
+
 try {
     include 'edit_course.php';
     echo 'Test 4 failed';
@@ -83,6 +93,7 @@ try {
 }
 
 // Test case 5: Course does not exist
+
 $_USER = ['is_admin' => true];
 $_POST = ['course' => '1234567890123456', 'title' => 'Test Title', 'start_date' => '2022-01-01', 'end_date' => '2022-12-31', 'places' => '30'];
 function sql($query, $type) {
@@ -91,6 +102,7 @@ function sql($query, $type) {
     }
     return false;
 }
+
 try {
     include 'edit_course.php';
     echo 'Test 5 failed';
@@ -103,6 +115,7 @@ try {
 }
 
 // Test case 6: Start date can't be earlier than tomorrow
+
 $_USER = ['is_admin' => true];
 $_POST = ['course' => '1234567890123456', 'title' => 'Test Title', 'start_date' => '2022-01-01', 'end_date' => '2022-12-31', 'places' => '30'];
 function sql($query, $type) {
@@ -111,6 +124,7 @@ function sql($query, $type) {
     }
     return false;
 }
+
 try {
     include 'edit_course.php';
     echo 'Test 6 failed';
@@ -123,8 +137,10 @@ try {
 }
 
 // Test case 7: Invalid end date
+
 $_USER = ['is_admin' => true];
 $_POST = ['course' => '1234567890123456', 'title' => 'Test Title', 'start_date' => '2022-01-01', 'end_date' => 'invalid', 'places' => '30'];
+
 try {
     include 'edit_course.php';
     echo 'Test 7 failed';
@@ -137,8 +153,10 @@ try {
 }
 
 // Test case 8: End date earlier than start date
+
 $_USER = ['is_admin' => true];
 $_POST = ['course' => '1234567890123456', 'title' => 'Test Title', 'start_date' => '2022-12-31', 'end_date' => '2022-01-01', 'places' => '30'];
+
 try {
     include 'edit_course.php';
     echo 'Test 8 failed'; // No exception means the test failed

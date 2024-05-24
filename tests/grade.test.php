@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -18,7 +20,9 @@ function route($route) {
 }
 
 // Test1: Access denied for non-lecturer
+
 $_USER = ['is_lecturer' => false];
+
 try {
     include 'grade.php';
     echo 'Test 1 failed';
@@ -31,8 +35,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_lecturer' => true];
 $_POST = [];
+
 try {
     include 'grade.php';
     echo 'Test 2 failed';
@@ -45,9 +51,11 @@ try {
 }
 
 // Test case 3: Assignment submission does not exist
+
 $_USER = ['is_lecturer' => true];
 $_POST = ['assignment' => '1234567890123456', 'student' => '1234567890123456', 'grade' => '10'];
 $mock_sql_result = false;
+
 try {
     include 'grade.php';
     echo 'Test 3 failed';
@@ -60,9 +68,11 @@ try {
 }
 
 // Test case 4: Grade has been updated
+
 $_USER = ['is_lecturer' => true];
 $_POST = ['assignment' => '1234567890123456', 'student' => '1234567890123456', 'grade' => '10'];
 $mock_sql_result = true;
+
 try {
     include 'grade.php';
     echo 'Test 4 failed';

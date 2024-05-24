@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -18,8 +20,10 @@ function route($route) {
 }
 
 // Test case 1: Failed to create a classroom
+
 $mock_sql_result = false;
 $_POST = ['title' => 'Classroom title', 'location' => 'Classroom location', 'capacity' => '100'];
+
 try {
     include 'create_classroom.php';
     echo 'Test 1 failed';
@@ -32,7 +36,9 @@ try {
 }
 
 // Test case 2: Successfully created a classroom
+
 $mock_sql_result = true;
+
 try {
     include 'create_classroom.php';
     echo 'Test 2 failed';

@@ -6,8 +6,6 @@ Last revision: 2024-05-18
 
 - **Mikhail Melikhov** ``53633``
 - **Nika Gurchiani** ``54851``
-- **Eljan Rustamov** ``54856``
-- **Sai Rentapalli** ``55986``
 
 ### Project Topic
 
@@ -32,7 +30,7 @@ Last revision: 2024-05-18
 | Duty | Technology |
 | --- | --- |
 | **Backend** | PHP |
-| **Frontend** | HTML UI with JavaScript validations |
+| **Frontend** | Vanilla JavaScript |
 | **Database** | MySQL |
 
 ### Repository structure
@@ -54,7 +52,7 @@ Last revision: 2024-05-18
 
 - Password-based authorization
 - User management
-- User role separation(student, lecturer, administrator)
+- User role separation (student, lecturer, administrator)
 - Course management
 - Ability to apply to courses and withdraw
 - Enrolment management (administration acceptance, dropping out)

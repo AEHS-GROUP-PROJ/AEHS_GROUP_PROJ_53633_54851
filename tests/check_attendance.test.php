@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -14,8 +16,10 @@ function route($route) {
 }
 
 // Test case 1: Student not enrolled in the course
+
 $mock_sql_result = false;
 $_POST['attendance'] = '1';
+
 try {
     include 'check_attendance.php';
     echo 'Test 1 failed';
@@ -28,8 +32,10 @@ try {
 }
 
 // Test case 2: Marking student as present
+
 $mock_sql_result = true;
 $_POST['attendance'] = '1';
+
 try {
     include 'check_attendance.php';
     echo 'Test 2 failed';
@@ -42,8 +48,10 @@ try {
 }
 
 // Test case 3: Marking student as absent
+
 $mock_sql_result = true;
 $_POST['attendance'] = '0';
+
 try {
     include 'check_attendance.php';
     echo 'Test 3 failed';

@@ -1,5 +1,7 @@
 <?php
+
 // Mocking functions
+
 function message($message, $type) {
     throw new Exception($message);
 }
@@ -17,7 +19,9 @@ function str_wash($str, $type = null) {
 }
 
 // Test1: Access denied for non-admin
+
 $_USER = ['is_admin' => false];
+
 try {
     include 'edit_user.php';
     echo 'Test 1 failed';
@@ -30,8 +34,10 @@ try {
 }
 
 // Test case 2: Payload missing
+
 $_USER = ['is_admin' => true];
 $_POST = [];
+
 try {
     include 'edit_user.php';
     echo 'Test 2 failed';
@@ -44,8 +50,10 @@ try {
 }
 
 // Test case 3: Invalid email address
+
 $_USER = ['is_admin' => true];
 $_POST = ['user' => '1234567890123456', 'email' => 'invalid', 'full_name' => 'Test User', 'address' => 'Test Address', 'phone' => '1234567890', 'is_student' => '1', 'is_lecturer' => '1', 'is_admin' => '1', 'password' => 'password', 'password_confirm' => 'password'];
+
 try {
     include 'edit_user.php';
     echo 'Test 3 failed';
@@ -58,8 +66,10 @@ try {
 }
 
 // Test case 4: Full name missing
+
 $_USER = ['is_admin' => true];
 $_POST = ['user' => '1234567890123456', 'email' => 'test@example.com', 'full_name' => '', 'address' => 'Test Address', 'phone' => '1234567890', 'is_student' => '1', 'is_lecturer' => '1', 'is_admin' => '1', 'password' => 'password', 'password_confirm' => 'password'];
+
 try {
     include 'edit_user.php';
     echo 'Test 4 failed';
@@ -72,8 +82,10 @@ try {
 }
 
 // Test case 5: Self-unassign admin privileges
+
 $_USER = ['is_admin' => true, 'id' => '1234567890123456'];
 $_POST = ['user' => '1234567890123456', 'email' => 'test@example.com', 'full_name' => 'Test User', 'address' => 'Test Address', 'phone' => '1234567890', 'is_student' => '1', 'is_lecturer' => '1', 'is_admin' => '0', 'password' => 'password', 'password_confirm' => 'password'];
+
 try {
     include 'edit_user.php';
     echo 'Test 5 failed';
@@ -86,8 +98,10 @@ try {
 }
 
 // Test case 6: Password too short
+
 $_USER = ['is_admin' => true];
 $_POST = ['user' => '1234567890123456', 'email' => 'test@example.com', 'full_name' => 'Test User', 'address' => 'Test Address', 'phone' => '1234567890', 'is_student' => '1', 'is_lecturer' => '1', 'is_admin' => '1', 'password' => 'short', 'password_confirm' => 'short'];
+
 try {
     include 'edit_user.php';
     echo 'Test 6 failed';
@@ -100,8 +114,10 @@ try {
 }
 
 // Test case 7: Password fields do not match
+
 $_USER = ['is_admin' => true];
 $_POST = ['user' => '1234567890123456', 'email' => 'test@example.com', 'full_name' => 'Test User', 'address' => 'Test Address', 'phone' => '1234567890', 'is_student' => '1', 'is_lecturer' => '1', 'is_admin' => '1', 'password' => 'password', 'password_confirm' => 'different'];
+
 try {
     include 'edit_user.php';
     echo 'Test 7 failed';

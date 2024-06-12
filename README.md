@@ -40,7 +40,6 @@ Last revision: 2024-05-18
 | ``/README.md`` | This file |
 | ``/db`` | Database related documentation |
 | ``/src`` | Codebase |
-| ``/src/index.php`` | App's entry point |
 | ``/src/actions`` | Business logic related to user's actions |
 | ``/src/lib`` | Misc. helping functions |
 | ``/src/routes`` | Routes for app's UI layouts |

@@ -38,9 +38,9 @@ Last revision: 2024-05-18
 | Path | Description |
 | --- | --- |
 | ``/README.md`` | This file |
-| ``index.php`` | App's entry point |
 | ``/db`` | Database related documentation |
 | ``/src`` | Codebase |
+| ``/src/index.php`` | App's entry point |
 | ``/src/actions`` | Business logic related to user's actions |
 | ``/src/lib`` | Misc. helping functions |
 | ``/src/routes`` | Routes for app's UI layouts |
